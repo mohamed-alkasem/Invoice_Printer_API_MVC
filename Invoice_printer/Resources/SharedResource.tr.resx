@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <!-- Enums -->
+  <data name="ReceiptType_Collection" xml:space="preserve"><value>Tahsilat</value></data>
+  <data name="ReceiptType_Payment" xml:space="preserve"><value>Tediye</value></data>
+  <data name="ReceiptStatus_Draft" xml:space="preserve"><value>Taslak</value></data>
+  <data name="ReceiptStatus_Final" xml:space="preserve"><value>Kesin</value></data>
+
+  <data name="PaymentMethod_None" xml:space="preserve"><value>Yok</value></data>
+  <data name="PaymentMethod_Cash" xml:space="preserve"><value>Nakit</value></data>
+  <data name="PaymentMethod_Card" xml:space="preserve"><value>Kart</value></data>
+  <data name="PaymentMethod_Transfer" xml:space="preserve"><value>Havale</value></data>
+  <data name="PaymentMethod_Other" xml:space="preserve"><value>Diğer</value></data>
+
+  <data name="TemplateMode_Html" xml:space="preserve"><value>HTML</value></data>
+  <data name="TemplateMode_Image" xml:space="preserve"><value>Görsel</value></data>
+
+  <!-- DTO Display Names -->
+  <data name="Login_UserNameOrEmail" xml:space="preserve"><value>Kullanıcı adı veya e-posta</value></data>
+  <data name="Login_Password" xml:space="preserve"><value>Şifre</value></data>
+  <data name="Login_RememberMe" xml:space="preserve"><value>Beni hatırla</value></data>
+
+  <data name="Register_CompanyName" xml:space="preserve"><value>Firma adı</value></data>
+  <data name="Register_CompanyAddres" xml:space="preserve"><value>Firma adresi</value></data>
+  <data name="Register_WebsiteUrl" xml:space="preserve"><value>Web sitesi (opsiyonel)</value></data>
+  <data name="Register_Email" xml:space="preserve"><value>E-posta</value></data>
+  <data name="Register_UserName" xml:space="preserve"><value>Kullanıcı adı</value></data>
+  <data name="Register_Password" xml:space="preserve"><value>Şifre</value></data>
+
+  <data name="Party_Name" xml:space="preserve"><value>Ad</value></data>
+  <data name="Party_Phone" xml:space="preserve"><value>Telefon</value></data>
+  <data name="Party_Address" xml:space="preserve"><value>Adres</value></data>
+  <data name="Party_TaxNo" xml:space="preserve"><value>Vergi No (opsiyonel)</value></data>
+  <data name="Party_Notes" xml:space="preserve"><value>Notlar (opsiyonel)</value></data>
+
+  <data name="Receipt_PartyId" xml:space="preserve"><value>Cari</value></data>
+  <data name="Receipt_TemplateId" xml:space="preserve"><value>Şablon</value></data>
+  <data name="Receipt_Type" xml:space="preserve"><value>Tür</value></data>
+  <data name="Receipt_Date" xml:space="preserve"><value>Tarih</value></data>
+  <data name="Receipt_Currency" xml:space="preserve"><value>Para birimi</value></data>
+  <data name="Receipt_Description" xml:space="preserve"><value>Açıklama</value></data>
+  <data name="Receipt_PaymentMethod" xml:space="preserve"><value>Ödeme yöntemi</value></data>
+  <data name="Receipt_SignatureName" xml:space="preserve"><value>İmza adı</value></data>
+
+  <data name="Template_Type" xml:space="preserve"><value>Makbuz türü</value></data>
+  <data name="Template_Name" xml:space="preserve"><value>Şablon adı</value></data>
+  <data name="Template_TemplateMode" xml:space="preserve"><value>Şablon modu</value></data>
+  <data name="Template_BackgroundImageFile" xml:space="preserve"><value>Arkaplan görseli (opsiyonel)</value></data>
+  <data name="Template_SettingsJson" xml:space="preserve"><value>Ayarlar (JSON, opsiyonel)</value></data>
+  <data name="Template_IsDefault" xml:space="preserve"><value>Varsayılan şablon mu?</value></data>
+  <data name="Template_HtmlContent" xml:space="preserve"><value>HTML içerik</value></data>
+  <data name="Template_RemoveBackground" xml:space="preserve"><value>Mevcut arkaplanı kaldır</value></data>
+</root>
+

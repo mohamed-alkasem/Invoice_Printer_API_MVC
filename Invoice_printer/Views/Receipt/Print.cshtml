@@ -1,0 +1,840 @@
+﻿@* @model Invoice_printer.DTO_S.ReceiptPrintViewModel
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8" />
+    <title>Cash Receipt</title>
+
+    <style>
+        /* ===== Print page ===== */
+        @@page {
+            size: A4;
+            margin: 0;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: Tahoma, Arial, sans-serif;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+            background: #f3f4f6;
+            color: #111;
+        }
+
+        /* ===== Paper (fixed A4) ===== */
+        .paper {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: #fff;
+            /* Optional template background */
+            background-image: url('@Model.BackgroundImageUrl');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            position: relative;
+            padding: 18mm 16mm 16mm 16mm;
+            box-sizing: border-box;
+        }
+
+        /* White overlay for readability (over background) */
+        .overlay {
+            background: rgba(255,255,255,.92);
+            border: 1px solid #e6e6e6;
+            border-radius: 10px;
+            padding: 18px 18px 16px;
+            box-sizing: border-box;
+        }
+
+        /* ===== Header ===== */
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 160px;
+        }
+
+            .brand img {
+                height: 44px;
+                max-width: 160px;
+                object-fit: contain;
+                display: block;
+            }
+
+        .titleWrap {
+            flex: 1;
+            text-align: center;
+        }
+
+            .titleWrap .title {
+                font-size: 22px;
+                font-weight: 800;
+                letter-spacing: .2px;
+                margin: 0;
+            }
+
+            .titleWrap .sub {
+                margin-top: 4px;
+                font-size: 12px;
+                color: #666;
+            }
+
+        .metaBox {
+            min-width: 190px;
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+            padding: 8px 10px;
+            font-size: 12px;
+            background: rgba(255,255,255,.96);
+            box-sizing: border-box;
+        }
+
+        .metaRow {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            line-height: 1.7;
+        }
+
+            .metaRow span {
+                color: #444;
+            }
+
+            .metaRow b {
+                color: #111;
+            }
+
+        .divider {
+            border-top: 1px dashed #cfcfcf;
+            margin: 14px 0;
+        }
+
+        /* ===== Form lines ===== */
+        .form {
+            margin-top: 6px;
+            font-size: 14px;
+        }
+
+        .row {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .label {
+            white-space: nowrap;
+            font-weight: 700;
+            color: #111;
+        }
+
+        /* dotted line field */
+        .lineField {
+            flex: 1;
+            border-bottom: 1px dotted #666;
+            height: 22px;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 2px;
+            color: #111;
+            box-sizing: border-box;
+        }
+
+            .lineField span {
+                display: inline-block;
+                transform: translateY(1px);
+                padding: 0 4px;
+            }
+
+        /* Amount blocks */
+        .amountGrid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .amountCard {
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+            padding: 10px;
+            background: rgba(255,255,255,.96);
+            box-sizing: border-box;
+        }
+
+            .amountCard .cap {
+                font-size: 12px;
+                color: #666;
+                margin-bottom: 6px;
+                font-weight: 700;
+            }
+
+            .amountCard .val {
+                font-size: 18px;
+                font-weight: 800;
+            }
+
+        .amountWords {
+            margin-top: 10px;
+            border: 1px dashed #cfcfcf;
+            border-radius: 10px;
+            padding: 10px;
+            background: rgba(255,255,255,.96);
+            font-size: 13px;
+            line-height: 1.6;
+            box-sizing: border-box;
+        }
+
+        /* ===== QR + signatures ===== */
+        .bottom {
+            margin-top: 14px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+
+        .qrBox {
+            width: 170px;
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            background: rgba(255,255,255,.96);
+            box-sizing: border-box;
+        }
+
+            .qrBox img {
+                width: 120px;
+                height: 120px;
+                object-fit: contain;
+                display: inline-block;
+            }
+
+            .qrBox .hint {
+                margin-top: 6px;
+                font-size: 11px;
+                color: #666;
+                word-break: break-all;
+            }
+
+        .signs {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .sign {
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+            padding: 10px;
+            background: rgba(255,255,255,.96);
+            box-sizing: border-box;
+        }
+
+            .sign .cap {
+                font-size: 12px;
+                color: #666;
+                font-weight: 700;
+            }
+
+            .sign .line {
+                border-top: 1px solid #111;
+                margin-top: 28px;
+            }
+
+        /* Avoid breaks in print */
+        @@media print {
+            html, body {
+                background: #fff;
+            }
+
+            .paper {
+                box-shadow: none;
+            }
+
+            .overlay, .topbar, .form, .bottom {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="paper">
+        <div class="overlay">
+
+            <!-- ===== Header ===== -->
+            <div class="topbar">
+                <div class="brand">
+                    @if (!string.IsNullOrWhiteSpace(Model.LogoUrl))
+                    {
+                        <img src="@Model.LogoUrl" alt="Logo" />
+                    }
+                </div>
+
+                <div class="titleWrap">
+                    <h1 class="title">Cash Receipt</h1>
+                    <div class="sub">@Model.CompanyName</div>
+                </div>
+
+                <div class="metaBox">
+                    <div class="metaRow"><span>Date:</span> <b>@Model.Date.ToString("yyyy-MM-dd")</b></div>
+                    <div class="metaRow"><span>Receipt No:</span> <b>@Model.ReceiptNo</b></div>
+                    <div class="metaRow"><span>Status:</span> <b>@Model.Status</b></div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- ===== Form ===== -->
+            <div class="form">
+
+                <div class="row">
+                    <div class="label">Received from:</div>
+                    <div class="lineField"><span>@Model.PartyName</span></div>
+                </div>
+
+                <div class="row">
+                    <div class="label">Amount:</div>
+                    <div class="lineField">
+                        <span>@Model.Total.ToString("n2") @Model.Currency</span>
+                    </div>
+                </div>
+
+                <div class="amountGrid">
+                    <div class="amountCard">
+                        <div class="cap">Amount (numeric)</div>
+                        <div class="val">@Model.Total.ToString("n2") @Model.Currency</div>
+                    </div>
+
+                    <div class="amountCard">
+                        <div class="cap">Payment method</div>
+                        <div class="val" style="font-size:15px;font-weight:800">@Model.PaymentMethod</div>
+                    </div>
+                </div>
+
+                <div class="amountWords">
+                    <b>Amount (in words):</b><br />
+                    @Model.TotalInWords
+                </div>
+
+                <div class="row" style="margin-top:12px;">
+                    <div class="label">For:</div>
+                    <div class="lineField"><span>@Model.Description</span></div>
+                </div>
+
+                <div class="row">
+                    <div class="label">Address:</div>
+                    <div class="lineField"><span>@Model.CompanyAddres</span></div>
+                </div>
+
+                <div class="row">
+                    <div class="label">Phone / Tax:</div>
+                    <div class="lineField">
+                        <span>Tel: @Model.Phone &nbsp;&nbsp; | &nbsp;&nbsp; Tax: @Model.TaxNo</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- ===== Bottom ===== -->
+            <div class="bottom">
+                <div class="signs">
+                    <div class="sign">
+                        <div class="cap">Receiver signature</div>
+                        <div class="line"></div>
+                    </div>
+
+                    <div class="sign">
+                        <div class="cap">Issued by: <b>@Model.SignatureName</b></div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+
+                <div class="qrBox">
+                    @if (!string.IsNullOrWhiteSpace(Model.QrCodeDataUrl))
+                    {
+                        <img src="@Model.QrCodeDataUrl" alt="QR Code" />
+                    }
+                    <div class="hint">Verify: @Model.ReceiptNo</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html> *@
+
+@* @model Invoice_printer.DTO_S.ReceiptPrintViewModel
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Receipt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 24px;
+            color: #111;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .logo {
+            height: 70px;
+            max-width: 220px;
+            object-fit: contain;
+        }
+
+        .company {
+            text-align: right;
+        }
+
+            .company .name {
+                font-size: 18px;
+                font-weight: 700;
+            }
+
+        .muted {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .line {
+            border-top: 1px solid #ddd;
+            margin: 14px 0;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 800;
+            margin: 8px 0;
+        }
+
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            font-size: 13px;
+        }
+
+        .box {
+            border: 1px solid #e2e2e2;
+            padding: 10px;
+            border-radius: 6px;
+            flex: 1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            font-size: 13px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        th {
+            background: #f5f5f5;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .total {
+            margin-top: 10px;
+            text-align: right;
+            font-size: 16px;
+        }
+
+            .total b {
+                font-size: 18px;
+            }
+
+        .footer {
+            margin-top: 34px;
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .sig {
+            width: 48%;
+        }
+
+            .sig .line2 {
+                border-top: 1px solid #111;
+                margin-top: 28px;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div>
+            @if (!string.IsNullOrWhiteSpace(Model.LogoUrl))
+            {
+                <img class="logo" src="@Model.LogoUrl" alt="Logo" />
+            }
+        </div>
+        <div class="company">
+            <div class="name">@Model.CompanyName</div>
+            <div class="muted">@Model.CompanyAddres</div>
+            <div class="muted">Tel: @Model.Phone | Tax: @Model.TaxNo</div>
+            <div class="muted">@Model.WebsiteUrl</div>
+        </div>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="title">@Model.Type Receipt</div>
+
+    <div class="meta">
+        <div class="box">
+            <div><b>No:</b> @Model.ReceiptNo</div>
+            <div><b>Date:</b> @Model.Date.ToString("yyyy-MM-dd")</div>
+            <div><b>Status:</b> @Model.Status</div>
+        </div>
+
+        <div class="box">
+            <div><b>Party:</b> @Model.PartyName</div>
+            <div><b>Payment:</b> @Model.PaymentMethod</div>
+            <div><b>Currency:</b> @Model.Currency</div>
+        </div>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="muted"><b>Description:</b> @Model.Description</div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th class="right">Qty</th>
+                <th class="right">Unit Price</th>
+                <th class="right">Line Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Items == null || Model.Items.Count == 0)
+            {
+                <tr><td colspan="4" style="text-align:center;color:#666">No items</td></tr>
+            }
+            else
+            {
+                foreach (var it in Model.Items)
+                {
+                    <tr>
+                        <td>@it.Title</td>
+                        <td class="right">@it.Quantity.ToString("n2")</td>
+                        <td class="right">@it.UnitPrice.ToString("n2")</td>
+                        <td class="right">@it.LineTotal.ToString("n2")</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <div class="total">
+        Total: <b>@Model.Total.ToString("n2")</b> @Model.Currency
+    </div>
+    <div class="amountWords">
+        <b>Amount (in words):</b><br />
+        @Model.TotalInWords
+    </div>
+
+    <div class="footer">
+        <div class="sig">
+            <div class="muted">Customer / Party Signature</div>
+            <div class="line2"></div>
+        </div>
+        <div class="sig" style="text-align:right">
+            <div class="muted">Company Signature: <b>@Model.SignatureName</b></div>
+            <div class="line2"></div>
+        </div>
+    </div>
+
+</body>
+</html> *@
+
+@model Invoice_printer.DTO_S.ReceiptPrintViewModel
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <title>إيصال استلام نقدية</title>
+    <style>
+        @@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap');
+
+        body {
+            font-family: 'Almarai', sans-serif;
+            margin: 0;
+            padding: 40px;
+            color: #1a1a1a;
+            background-color: #fff;
+            position: relative;
+            min-height: 297mm; /* حجم A4 تقريبي لضمان التنسيق */
+            box-sizing: border-box;
+        }
+
+        /* الزخارف الجانبية (الأشرطة الملونة) */
+        .decor-top {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            width: 250px;
+            height: 40px;
+            background: linear-gradient(90deg, #ff4b5c 0%, #ff9068 100%);
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+            z-index: 1;
+        }
+
+        .decor-bottom {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            width: 450px;
+            height: 40px;
+            background: linear-gradient(90deg, #1a2a44 0%, #ff4b5c 50%, #ff9068 100%);
+            clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+            z-index: 1;
+        }
+
+        .top-border {
+            border-top: 2px solid #1a2a44;
+            border-bottom: 1px solid #1a2a44;
+            height: 4px;
+            margin-bottom: 20px;
+        }
+
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .logo-box {
+            background-color: #1a2a44;
+            padding: 10px;
+            width: 110px;
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            z-index: 2;
+        }
+
+        .logo-box img {
+            max-width: 100%;
+            max-height: 100%;
+            background: white;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 34px;
+            font-weight: 800;
+            color: #000;
+            margin: 0 0 10px 0;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        .field-group {
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .label {
+            font-weight: 700;
+            color: #000;
+            white-space: nowrap;
+            margin-left: 10px;
+            font-size: 19px;
+            z-index: 2;
+        }
+
+        .dotted-line-container {
+            flex-grow: 1;
+            border-bottom: 2px dotted #999;
+            position: relative;
+            height: 35px;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .content-text {
+            position: absolute;
+            bottom: 6px;
+            right: 15px;
+            color: #1a2a44;
+            font-weight: bold;
+            font-size: 18px;
+            width: calc(100% - 30px);
+            text-align: center; /* توسيط النص فوق الخط لمظهر أفضل */
+        }
+
+        .half-field {
+            display: flex;
+            flex: 1;
+            align-items: flex-end;
+        }
+
+        /* إصلاح منطقة التوقيع */
+        .footer-section {
+            margin-top: 60px;
+            display: flex;
+            justify-content: center;
+            width: 350px;
+            margin-right: 10%; /* محاذاة لليمين قليلاً كما في الصورة */
+            position: relative;
+            z-index: 5;
+        }
+
+        .signature-box {
+            text-align: center;
+            width: 100%;
+        }
+
+        .signature-label {
+            color: #b03050;
+            font-weight: 800;
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+        .signature-line {
+            border-top: 3px dotted #000;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .receipt-no {
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="decor-top"></div>
+    <div class="top-border"></div>
+
+    <div class="header-section">
+        <div class="receipt-no">
+            رقم: <span style="font-family: Arial;">@Model.ReceiptNo</span>
+        </div>
+        
+        <div class="logo-box">
+            @if (!string.IsNullOrWhiteSpace(Model.LogoUrl))
+            {
+                <img src="@Model.LogoUrl" alt="Logo" />
+            }
+            else
+            {
+                <span style="font-size:16px;">أضف<br>شعارك</span>
+            }
+        </div>
+    </div>
+
+    <div class="title">إيصال استلام نقدية</div>
+
+    <div class="info-row">
+        <div></div>
+        <div>
+            <span class="label" style="color: #b03050;">التاريخ:</span>
+            <span style="font-family: Arial; letter-spacing: 2px; font-weight: bold;"> @Model.Date.ToString("dd / MM / yyyy")</span>
+        </div>
+    </div>
+
+    <div class="receipt-body">
+        
+        <div class="field-group">
+            <span class="label">استلمنا من السيد</span>
+            <div class="dotted-line-container">
+                <span class="content-text">@Model.PartyName</span>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <div class="half-field">
+                <span class="label">مبلغ وقدره</span>
+                <div class="dotted-line-container">
+                    <span class="content-text">@Model.Total.ToString("n2") @Model.Currency</span>
+                </div>
+            </div>
+            
+            <div class="half-field" style="margin-right:20px;">
+                <span class="label">نقداً / شيك رقم</span>
+                <div class="dotted-line-container">
+                    <span class="content-text">@Model.Description</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <span class="label">وذلك قيمة</span>
+            <div class="dotted-line-container">
+                <span class="content-text">@Model.TotalInWords</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-section">
+        <div class="signature-box">
+            <div class="signature-label">المستلم</div>
+            <div class="signature-line"></div>
+        </div>
+    </div>
+
+    <div class="top-border" style="position: absolute; bottom: 85px; width: calc(100% - 80px);"></div>
+    <div class="decor-bottom"></div>
+
+</body>
+</html>

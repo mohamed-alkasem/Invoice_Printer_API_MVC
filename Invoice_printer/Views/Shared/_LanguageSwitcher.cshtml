@@ -1,0 +1,34 @@
+@using System.Globalization
+
+@{
+    var returnUrl = (Context?.Request?.Path.Value ?? "/") + (Context?.Request?.QueryString.ToString() ?? "");
+    var current = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+
+    // Use stable short codes + native labels (avoid "??" issues)
+    var langs = new[]
+    {
+        new { Code = "tr-TR", Short = "TR", Label = "Türkçe" },
+        new { Code = "en-US", Short = "EN", Label = "English" },
+    };
+}
+
+<div class="dropdown">
+    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        @(langs.FirstOrDefault(x => x.Code.StartsWith(current, StringComparison.OrdinalIgnoreCase))?.Short ?? "EN")
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end">
+        @foreach (var l in langs)
+        {
+            <li>
+                <a class="dropdown-item @(CultureInfo.CurrentUICulture.Name.Equals(l.Code, StringComparison.OrdinalIgnoreCase) ? "active" : "")"
+                   asp-controller="Home"
+                   asp-action="SetLanguage"
+                   asp-route-culture="@l.Code"
+                   asp-route-returnUrl="@returnUrl">
+                    @l.Label
+                </a>
+            </li>
+        }
+    </ul>
+</div>
+

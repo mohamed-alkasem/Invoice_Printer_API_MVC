@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <data name="Title" xml:space="preserve"><value>Create Template</value></data>
+  <data name="Heading" xml:space="preserve"><value>Create Template</value></data>
+
+  <data name="BasicInfo" xml:space="preserve"><value>Basic Info</value></data>
+  <data name="BasicInfoHint" xml:space="preserve"><value>Name, type and mode</value></data>
+  <data name="Select" xml:space="preserve"><value>-- Select --</value></data>
+
+  <data name="HtmlTemplate" xml:space="preserve"><value>HTML Template</value></data>
+  <data name="HtmlTemplateHint" xml:space="preserve"><value>Visible only when mode is HTML</value></data>
+  <data name="HtmlPlaceholder" xml:space="preserve"><value>Write your full HTML here (you can include &lt;style&gt; inside).</value></data>
+  <data name="Placeholders" xml:space="preserve"><value>Placeholders</value></data>
+
+  <data name="BackgroundSettings" xml:space="preserve"><value>Background &amp; Settings</value></data>
+  <data name="Optional" xml:space="preserve"><value>Optional</value></data>
+  <data name="BackgroundImageOptional" xml:space="preserve"><value>Background Image (Optional)</value></data>
+  <data name="BackgroundImageHint" xml:space="preserve"><value>Upload a background image. It will be used when exporting/printing.</value></data>
+  <data name="SettingsPlaceholder" xml:space="preserve"><value>Optional (can be empty for now)</value></data>
+
+  <data name="Save" xml:space="preserve"><value>Save</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Cancel</value></data>
+</root>
+

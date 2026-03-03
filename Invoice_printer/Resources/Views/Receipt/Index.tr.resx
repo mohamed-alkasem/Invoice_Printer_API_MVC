@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <data name="Title" xml:space="preserve"><value>Makbuzlar</value></data>
+  <data name="Heading" xml:space="preserve"><value>Makbuzlar</value></data>
+  <data name="NewCollection" xml:space="preserve"><value>Yeni Tahsilat</value></data>
+  <data name="NewPayment" xml:space="preserve"><value>Yeni Tediye</value></data>
+  <data name="Empty" xml:space="preserve"><value>Henüz makbuz bulunamadı.</value></data>
+
+  <data name="Date" xml:space="preserve"><value>Tarih</value></data>
+  <data name="Type" xml:space="preserve"><value>Tür</value></data>
+  <data name="Status" xml:space="preserve"><value>Durum</value></data>
+  <data name="Amount" xml:space="preserve"><value>Tutar</value></data>
+  <data name="Actions" xml:space="preserve"><value>İşlemler</value></data>
+
+  <data name="Collection" xml:space="preserve"><value>Tahsilat</value></data>
+  <data name="Payment" xml:space="preserve"><value>Tediye</value></data>
+  <data name="Final" xml:space="preserve"><value>Kesin</value></data>
+  <data name="Draft" xml:space="preserve"><value>Taslak</value></data>
+  <data name="Open" xml:space="preserve"><value>Görüntüle</value></data>
+</root>
+

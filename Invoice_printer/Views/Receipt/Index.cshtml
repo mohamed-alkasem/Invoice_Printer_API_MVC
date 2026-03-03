@@ -1,0 +1,102 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer L
+@model List<Invoice_printer.Models.Receipt>
+@using Invoice_printer.Models
+
+@{
+    ViewData["Title"] = L["Title"];
+}
+
+<div class="receipt-index-wrap">
+
+    <div class="receipt-index-header">
+        <h2 class="receipt-index-title">@L["Heading"]</h2>
+
+        <div class="receipt-index-actions">
+            <a class="btn btn-primary" href="/Receipt/Create/Collection">@L["NewCollection"]</a>
+            <a class="btn btn-success" href="/Receipt/Create/Payment">@L["NewPayment"]</a>
+        </div>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="receipt-empty ui-empty">@L["Empty"]</div>
+    }
+    else
+    {
+        <div class="receipt-card ui-table">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle receipt-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>@L["Date"]</th>
+                            <th>@L["Type"]</th>
+                            <th>@L["Status"]</th>
+                            <th class="text-end">@L["Amount"]</th>
+                            <th class="text-end" style="width:130px;">@L["Actions"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var r in Model)
+                        {
+                            var isFinal = r.Status == ReceiptStatus.Final;
+                            var isCollection = r.Type == ReceiptType.Collection;
+
+                            <tr>
+                                <td><b>@r.ReceiptNo</b></td>
+                                <td>@r.Date.ToString("yyyy-MM-dd")</td>
+
+                                <td>
+                                    @if (isCollection)
+                                    {
+                                        <span class="badge-soft badge-collection">
+                                            @L["Collection"]
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge-soft badge-payment">
+                                            @L["Payment"]
+                                        </span>
+                                    }
+                                </td>
+
+                                <td>
+                                    @if (isFinal)
+                                    {
+                                        <span class="badge-soft badge-final">
+                                            @L["Final"]
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge-soft badge-draft">
+                                            @L["Draft"]
+                                        </span>
+                                    }
+                                </td>
+
+                                <td class="text-end">
+                                    <b>@r.Amount.ToString("0.##")</b> @r.Currency
+                                </td>
+
+                                <td class="text-end">
+                                    <a class="btn btn-sm btn-outline-primary receipt-open-btn"
+                                       asp-action="Details"
+                                       asp-route-id="@r.Id">
+                                        @L["Open"]
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/receipt-index.css" asp-append-version="true" />
+}

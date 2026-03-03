@@ -1,0 +1,291 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer L
+@inject Microsoft.Extensions.Localization.IStringLocalizer<Invoice_printer.Resources.SharedResource> SR
+@model Invoice_printer.DTO_S.ReceiptCreateDto
+@using Invoice_printer.Models
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using Invoice_printer.extensions
+
+@{
+    ViewData["Title"] = L["Title"];
+
+    var parties = ViewBag.Parties as List<Party> ?? new List<Party>();
+    var templates = ViewBag.Templates as List<Template> ?? new List<Template>();
+}
+
+<div class="receipt-create-wrap">
+    <h2 class="receipt-title">
+        @L["Heading"]
+    </h2>
+
+    <form asp-action="Create" asp-route-type="@Model.Type" method="post" class="receipt-card">
+        @Html.AntiForgeryToken()
+
+        <!-- ===================== TYPE SELECT ===================== -->
+        <div class="mb-3">
+            <label asp-for="Type" class="form-label"></label>
+
+            @if ((int)Model.Type == 0)
+            {
+                <select asp-for="Type"
+                        class="form-select"
+                        onchange="if(this.value) location.href='@Url.Action("CreateByType","Receipt")/' + this.value;">
+                    <option value="">@L["SelectType"]</option>
+                    <option value="@((int)ReceiptType.Collection)">
+                        @L["Collection"]
+                    </option>
+                    <option value="@((int)ReceiptType.Payment)">
+                        @L["Payment"]
+                    </option>
+                </select>
+            }
+            else
+            {
+                <select asp-for="Type" class="form-select" disabled>
+                    <option value="@((int)ReceiptType.Collection)">
+                        @L["Collection"]
+                    </option>
+                    <option value="@((int)ReceiptType.Payment)">
+                        @L["Payment"]
+                    </option>
+                </select>
+
+                <input type="hidden" asp-for="Type" />
+            }
+
+            <span asp-validation-for="Type" class="text-danger"></span>
+        </div>
+
+        <hr class="receipt-hr" />
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="Date" class="form-label"></label>
+                <input asp-for="Date" type="date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="Currency" class="form-label"></label>
+                <input asp-for="Currency" class="form-control" />
+                <span asp-validation-for="Currency" class="text-danger"></span>
+            </div>
+        </div>
+
+        <input type="hidden" asp-for="CompanyProfileId" />
+
+        <!-- ===================== PARTY ===================== -->
+        <div class="mb-3">
+            <label asp-for="PartyId" class="form-label"></label>
+            <select asp-for="PartyId"
+                    class="form-select"
+                    asp-items="new SelectList(parties, nameof(Party.Id), nameof(Party.Name))">
+                <option value="">@L["SelectParty"]</option>
+            </select>
+            <span asp-validation-for="PartyId" class="text-danger"></span>
+        </div>
+
+        <!-- ===================== TEMPLATE ===================== -->
+        <div class="mb-3">
+            <label asp-for="TemplateId" class="form-label"></label>
+            <select asp-for="TemplateId"
+                    class="form-select"
+                    asp-items="new SelectList(templates, nameof(Template.Id), nameof(Template.Name))">
+                <option value="">@L["SelectTemplate"]</option>
+            </select>
+            <span asp-validation-for="TemplateId" class="text-danger"></span>
+            <div class="form-text">
+                @L["TemplateHint"]
+            </div>
+        </div>
+
+        <!-- ===================== PAYMENT METHOD ===================== -->
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="PaymentMethod" class="form-label"></label>
+                <select asp-for="PaymentMethod"
+                        class="form-select"
+                        asp-items="SR.ToLocalizedSelectList<PaymentMethod>(Model.PaymentMethod)">
+                </select>
+                <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="SignatureName" class="form-label"></label>
+                <input asp-for="SignatureName" class="form-control" />
+                <span asp-validation-for="SignatureName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label"></label>
+            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <hr class="receipt-hr" />
+
+        <!-- ===================== ITEMS ===================== -->
+        <div class="items-head">
+            <h4 class="receipt-section-title">
+                @L["Items"]
+            </h4>
+            <button type="button" class="btn btn-sm btn-outline-primary" id="btnAddItem">
+                + @L["AddItem"]
+            </button>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle items-table" id="itemsTable">
+                <thead>
+                    <tr>
+                        <th>@L["ItemTitle"]</th>
+                        <th style="width:140px;">@L["Qty"]</th>
+                        <th style="width:160px;">@L["UnitPrice"]</th>
+                        <th style="width:160px;">@L["LineTotal"]</th>
+                        <th style="width:60px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Items.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                <input asp-for="Items[@i].Title" class="form-control" />
+                            </td>
+                            <td>
+                                <input asp-for="Items[@i].Quantity" class="form-control" />
+                            </td>
+                            <td>
+                                <input asp-for="Items[@i].UnitPrice" class="form-control" />
+                            </td>
+                            <td class="text-end">
+                                <span class="lineTotal">0.00</span>
+                            </td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-sm btn-outline-danger btnRemoveItem btn-remove-x">×</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ✅ Grand Total -->
+        <div class="d-flex justify-content-end mt-3">
+            <div class="total-box">
+                <div class="d-flex justify-content-between">
+                    <span class="label">@L["Total"]</span>
+                    <span class="value" id="grandTotal">0.00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex gap-2 mt-3 receipt-actions">
+            <button type="submit" class="btn btn-primary">
+                @L["Submit"]
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">
+                @L["Cancel"]
+            </a>
+        </div>
+    </form>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/receipt-create.css" asp-append-version="true" />
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+                (function () {
+                    const tableBody = document.querySelector("#itemsTable tbody");
+                    const addBtn = document.getElementById("btnAddItem");
+                    const grandTotalEl = document.getElementById("grandTotal");
+
+                    function parseNum(v) {
+                        const n = parseFloat((v ?? "").toString().replace(",", "."));
+                        return isNaN(n) ? 0 : n;
+                    }
+
+                    function format2(n) {
+                        return (Math.round(n * 100) / 100).toFixed(2);
+                    }
+
+                    function calcRow(row) {
+                        const qtyInput = row.querySelector("input[name$='.Quantity']");
+                        const priceInput = row.querySelector("input[name$='.UnitPrice']");
+                        const lineTotalEl = row.querySelector(".lineTotal");
+
+                        const qty = parseNum(qtyInput ? qtyInput.value : 0);
+                        const price = parseNum(priceInput ? priceInput.value : 0);
+
+                        const lineTotal = qty * price;
+                        if (lineTotalEl) lineTotalEl.textContent = format2(lineTotal);
+
+                        return lineTotal;
+                    }
+
+                    function recalcAll() {
+                        let total = 0;
+                        const rows = tableBody.querySelectorAll("tr");
+                        rows.forEach(r => total += calcRow(r));
+                        if (grandTotalEl) grandTotalEl.textContent = format2(total);
+                    }
+
+                    function rowTemplate(index) {
+                        return `
+        <tr>
+          <td>
+            <input class="form-control" name="Items[${index}].Title" />
+          </td>
+          <td>
+            <input class="form-control" name="Items[${index}].Quantity" value="1" />
+          </td>
+          <td>
+            <input class="form-control" name="Items[${index}].UnitPrice" value="0" />
+          </td>
+          <td class="text-end">
+            <span class="lineTotal">0.00</span>
+          </td>
+          <td class="text-center">
+            <button type="button" class="btn btn-sm btn-outline-danger btnRemoveItem btn-remove-x">×</button>
+          </td>
+        </tr>`;
+                    }
+
+                    function reindex() {
+                        const rows = tableBody.querySelectorAll("tr");
+                        rows.forEach((row, i) => {
+                            row.querySelectorAll("input[name^='Items[']").forEach(inp => {
+                                inp.name = inp.name.replace(/Items\[\d+\]/, `Items[${i}]`);
+                            });
+                        });
+                    }
+
+                    addBtn.addEventListener("click", () => {
+                        const index = tableBody.querySelectorAll("tr").length;
+                        tableBody.insertAdjacentHTML("beforeend", rowTemplate(index));
+                        recalcAll();
+                    });
+
+                    tableBody.addEventListener("click", (e) => {
+                        const btn = e.target.closest(".btnRemoveItem");
+                        if (!btn) return;
+
+                        btn.closest("tr").remove();
+                        reindex();
+                        recalcAll();
+                    });
+
+                    tableBody.addEventListener("input", (e) => {
+                        const inp = e.target;
+                        if (!inp.matches("input[name$='.Quantity'], input[name$='.UnitPrice']")) return;
+                        recalcAll();
+                    });
+
+                    recalcAll();
+                })();
+    </script>
+}

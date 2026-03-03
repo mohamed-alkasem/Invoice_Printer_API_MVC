@@ -1,0 +1,18 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer L
+
+<div class="topbar-inner">
+    <div class="topbar-left">
+        <div class="page-title">@((ViewData["Title"] as string) ?? L["Dashboard"].Value)</div>
+        <div class="page-subtitle text-muted">@L["TopbarSubtitle"]</div>
+    </div>
+
+    <div class="topbar-right">
+        <div class="me-2">
+            <partial name="_LanguageSwitcher" />
+        </div>
+        <div class="user-pill">
+            <span class="user-avatar">👤</span>
+            <span class="user-name">@User.Identity?.Name</span>
+        </div>
+    </div>
+</div>

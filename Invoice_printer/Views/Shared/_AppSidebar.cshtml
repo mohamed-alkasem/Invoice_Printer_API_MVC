@@ -1,0 +1,67 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer L
+
+@{
+    string C() => (ViewContext.RouteData.Values["controller"]?.ToString() ?? "");
+    string A() => (ViewContext.RouteData.Values["action"]?.ToString() ?? "");
+
+    string Active(string controller, string? action = null)
+    {
+        var ok = C().Equals(controller, StringComparison.OrdinalIgnoreCase);
+        if (!string.IsNullOrWhiteSpace(action))
+            ok = ok && A().Equals(action, StringComparison.OrdinalIgnoreCase);
+
+        return ok ? "is-active" : "";
+    }
+}
+
+<div class="sidebar-header">
+    <a class="sidebar-brand" asp-controller="Home" asp-action="Index">
+        <span class="brand-dot"></span>
+        <span>@L["Brand"]</span>
+    </a>
+</div>
+
+<div class="sidebar-section">
+    <div class="sidebar-title">@L["MainMenu"]</div>
+
+   @*  <a class="sidebar-link @Active("Dashboard", "Index")" asp-controller="Dashboard" asp-action="Index">
+        <span class="icon">🏠</span>
+        <span>Dashboard</span>
+    </a> *@
+
+    <a class="sidebar-link @Active("Receipt")" asp-controller="Receipt" asp-action="Index">
+        <span class="icon">🧾</span>
+        <span>@L["Receipts"]</span>
+    </a>
+
+    <a class="sidebar-link @Active("Template")" asp-controller="Template" asp-action="Index">
+        <span class="icon">🎨</span>
+        <span>@L["Templates"]</span>
+    </a>
+
+    <a class="sidebar-link @Active("Party")" asp-controller="Party" asp-action="Index">
+        <span class="icon">👥</span>
+        <span>@L["Parties"]</span>
+    </a>
+</div>
+
+<div class="sidebar-section">
+    <div class="sidebar-title">@L["Settings"]</div>
+
+    <a class="sidebar-link @Active("CompanyProfile")" asp-controller="CompanyProfile" asp-action="Edit">
+        <span class="icon">🏢</span>
+        <span>@L["CompanyProfile"]</span>
+    </a>
+
+   @*  <a class="sidebar-link @Active("Export")" asp-controller="Export" asp-action="Index">
+        <span class="icon">⬇️</span>
+        <span>Exports</span>
+    </a> *@
+</div>
+
+<div class="sidebar-footer">
+    <div class="small text-muted mb-2">@L["SignedIn"]</div>
+    <a class="btn btn-outline-danger btn-sm w-100" asp-controller="Auth" asp-action="Logout">
+        @L["Logout"]
+    </a>
+</div>

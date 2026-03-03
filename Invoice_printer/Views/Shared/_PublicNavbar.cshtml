@@ -1,0 +1,31 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer L
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background:linear-gradient(135deg,#1d4ed8 0%,#06b6d4 55%,#22c55e 100%);">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">
+                @L["Brand"]
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#publicNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div id="publicNav" class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+                    
+                    <li class="nav-item">
+                        <a class="btn btn-outline-primary btn-sm ms-lg-2" asp-controller="Auth" asp-action="Login">
+                            @L["Login"]
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary btn-sm ms-lg-2" asp-controller="Auth" asp-action="Register">
+                            @L["Register"]
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

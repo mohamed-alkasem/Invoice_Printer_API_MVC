@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 col-xl-10">
+
+            <div class="p-4 p-md-5 ui-card padded mb-4" style="background:linear-gradient(135deg, rgba(37,99,235,.12) 0%, rgba(6,182,212,.10) 100%), var(--ui-surface);">
+                <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
+                    <div>
+                        <h1 class="mb-2" style="font-weight:900; letter-spacing:.2px;">Invoice_printer</h1>
+                        <div class="text-muted" style="max-width:720px;">
+                            Create receipts, manage parties and templates, then export/print with clean layouts.
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 flex-wrap">
+                        <a class="btn btn-primary" asp-controller="Auth" asp-action="Login">Login</a>
+                        <a class="btn btn-outline-primary" asp-controller="Auth" asp-action="Register">Create Account</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="ui-card padded h-100">
+                        <div class="mb-2" style="font-weight:900;">Receipts</div>
+                        <div class="text-muted">Create collections/payments with items, totals, and statuses.</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="ui-card padded h-100">
+                        <div class="mb-2" style="font-weight:900;">Templates</div>
+                        <div class="text-muted">Design HTML/Image templates and set a default per type.</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="ui-card padded h-100">
+                        <div class="mb-2" style="font-weight:900;">Export & Print</div>
+                        <div class="text-muted">Export as PDF/PNG and print with consistent styling.</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

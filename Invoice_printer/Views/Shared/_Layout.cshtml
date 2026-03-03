@@ -1,0 +1,66 @@
+﻿@using System.Globalization
+@{
+    var culture = CultureInfo.CurrentUICulture;
+    var lang = culture.TwoLetterISOLanguageName;
+    var dir = culture.TextInfo.IsRightToLeft ? "rtl" : "ltr";
+}
+
+<!DOCTYPE html>
+<html lang="@lang" dir="@dir">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Invoice_printer</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Invoice_printer.styles.css" asp-append-version="true" />
+
+    @RenderSection("Styles", required: false)
+</head>
+
+<body class="app-body">
+
+    @if (!User.Identity?.IsAuthenticated ?? true)
+    {
+        @await Html.PartialAsync("_PublicNavbar")
+
+        <div class="container py-3">
+            <main role="main">
+                @RenderBody()
+            </main>
+        </div>
+
+        @await Html.PartialAsync("_Footer")
+    }
+    else
+    {
+        <div class="app-shell">
+            <div class="app-sidebar">
+                @await Html.PartialAsync("_AppSidebar")
+            </div>
+
+            <div class="app-main">
+                <div class="app-topbar">
+                    @await Html.PartialAsync("_AppTopbar")
+                </div>
+
+                <div class="app-content">
+                    @RenderBody()
+                </div>
+
+                <div class="app-footer">
+                    @await Html.PartialAsync("_Footer")
+                </div>
+            </div>
+        </div>
+    }
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

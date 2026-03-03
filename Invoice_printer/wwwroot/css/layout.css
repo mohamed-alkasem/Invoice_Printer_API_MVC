@@ -1,0 +1,244 @@
+﻿/* ============================================================
+   layout.css - Invoice_printer Dashboard Layout
+   Fixes footer position + adds clean UI details
+   ============================================================ */
+
+/* ===== Root / Base ===== */
+html, body {
+    height: 100%;
+}
+
+.app-body {
+    /* background handled in site.css (radial gradients) */
+    background: var(--ui-bg);
+}
+
+/* Main shell: sidebar + main */
+.app-shell {
+    min-height: 100vh;
+    display: flex;
+}
+
+/* =========================
+   Sidebar
+   ========================= */
+.app-sidebar {
+    width: 270px;
+    background: rgba(255,255,255,.88);
+    backdrop-filter: blur(10px);
+    border-right: 1px solid var(--ui-border);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+/* Brand header */
+.sidebar-header {
+    padding: 16px 16px 12px;
+    border-bottom: 1px solid var(--ui-border);
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--ui-text);
+    font-weight: 800;
+    letter-spacing: .2px;
+}
+
+.brand-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--ui-primary);
+    box-shadow: 0 0 0 7px rgba(37,99,235,.16);
+}
+
+/* Sections */
+.sidebar-section {
+    padding: 12px 10px;
+}
+
+.sidebar-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ui-muted);
+    padding: 10px 10px 6px;
+}
+
+/* Links */
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 10px;
+    margin: 4px 6px;
+    border-radius: 10px;
+    color: rgba(15,23,42,.92);
+    text-decoration: none;
+    transition: background .15s ease, transform .08s ease;
+}
+
+    .sidebar-link:hover {
+        background: rgba(37,99,235,.10);
+        transform: translateY(-1px);
+    }
+
+    .sidebar-link .icon {
+        width: 22px;
+        text-align: center;
+        opacity: .9;
+    }
+
+    .sidebar-link.is-active {
+        background: linear-gradient(135deg, rgba(37,99,235,.14) 0%, rgba(6,182,212,.10) 100%);
+        border: 1px solid rgba(37,99,235,.22);
+    }
+
+/* Sidebar footer (Logout area) */
+.sidebar-footer {
+    padding: 12px 16px 16px;
+    border-top: 1px solid var(--ui-border);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255,255,255,.92);
+}
+
+/* =========================
+   Main area
+   ========================= */
+.app-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* prevent overflow */
+    min-height: 100vh; /* IMPORTANT: full height column */
+}
+
+/* Topbar */
+.app-topbar {
+    background: rgba(255,255,255,.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--ui-border);
+}
+
+.topbar-inner {
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.page-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--ui-text);
+}
+
+.page-subtitle {
+    font-size: 12.5px;
+}
+
+/* User pill */
+.user-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.65);
+    border: 1px solid var(--ui-border);
+}
+
+.user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(37,99,235,.14);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Content area (IMPORTANT: flex:1 pushes footer down) */
+.app-content {
+    flex: 1 1 auto; /* ✅ Fix footer floating up */
+    padding: 18px;
+    min-height: 0; /* helps with overflow in some browsers */
+}
+
+/* Wrapper around footer in authenticated layout */
+.app-footer {
+    margin-top: auto; /* ✅ ensures footer goes to bottom */
+}
+
+/* Footer component itself */
+.footer-lite {
+    padding: 14px 0;
+    border-top: 1px solid var(--ui-border);
+    background: rgba(255,255,255,.88);
+    backdrop-filter: blur(10px);
+    margin-top: 0; /* ❌ do NOT use auto here */
+}
+
+/* =========================
+   Small UI Enhancements (optional)
+   ========================= */
+
+/* Make tables a bit cleaner inside content */
+.app-content .table {
+    /* Let `.ui-table` be the preferred wrapper, but keep this nice as a fallback */
+    background: var(--ui-surface);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Buttons slightly rounded */
+.btn {
+    border-radius: 10px;
+}
+
+/* =========================
+   RTL (when Culture is RTL)
+   ========================= */
+html[dir="rtl"] .app-shell{
+    flex-direction: row-reverse;
+}
+html[dir="rtl"] .app-sidebar{
+    border-right: 0;
+    border-left: 1px solid var(--ui-border);
+}
+html[dir="rtl"] .sidebar-footer{
+    left: auto;
+    right: 0;
+}
+
+/* =========================
+   Responsive
+   ========================= */
+@media (max-width: 992px) {
+    .app-sidebar {
+        width: 220px;
+    }
+}
+
+@media (max-width: 768px) {
+    .app-shell {
+        flex-direction: column;
+    }
+
+    .app-sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .sidebar-footer {
+        position: relative;
+    }
+}

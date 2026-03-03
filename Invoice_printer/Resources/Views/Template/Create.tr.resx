@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <data name="Title" xml:space="preserve"><value>Şablon Oluştur</value></data>
+  <data name="Heading" xml:space="preserve"><value>Şablon Oluştur</value></data>
+
+  <data name="BasicInfo" xml:space="preserve"><value>Temel Bilgiler</value></data>
+  <data name="BasicInfoHint" xml:space="preserve"><value>Ad, tür ve mod</value></data>
+  <data name="Select" xml:space="preserve"><value>-- Seçiniz --</value></data>
+
+  <data name="HtmlTemplate" xml:space="preserve"><value>HTML Şablonu</value></data>
+  <data name="HtmlTemplateHint" xml:space="preserve"><value>Yalnızca mod HTML olduğunda görünür</value></data>
+  <data name="HtmlPlaceholder" xml:space="preserve"><value>Buraya tam HTML’inizi yazın (içine &lt;style&gt; ekleyebilirsiniz).</value></data>
+  <data name="Placeholders" xml:space="preserve"><value>Yer tutucular</value></data>
+
+  <data name="BackgroundSettings" xml:space="preserve"><value>Arkaplan &amp; Ayarlar</value></data>
+  <data name="Optional" xml:space="preserve"><value>Opsiyonel</value></data>
+  <data name="BackgroundImageOptional" xml:space="preserve"><value>Arkaplan Görseli (Opsiyonel)</value></data>
+  <data name="BackgroundImageHint" xml:space="preserve"><value>Arkaplan görseli yükleyin. Dışa aktarma/yazdırmada kullanılır.</value></data>
+  <data name="SettingsPlaceholder" xml:space="preserve"><value>Opsiyonel (şimdilik boş olabilir)</value></data>
+
+  <data name="Save" xml:space="preserve"><value>Kaydet</value></data>
+  <data name="Cancel" xml:space="preserve"><value>İptal</value></data>
+</root>
+

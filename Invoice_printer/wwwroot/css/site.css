@@ -1,0 +1,179 @@
+/* ============================================================
+   site.css - Global Theme / Design System (Bootstrap overrides)
+   ============================================================ */
+
+:root{
+  /* Brand */
+  --ui-primary: #2563eb;
+  --ui-primary-2: #06b6d4;
+  --ui-success: #16a34a;
+  --ui-danger: #dc2626;
+  --ui-warning: #f59e0b;
+
+  /* Neutrals */
+  --ui-bg: #f6f7fb;
+  --ui-surface: #ffffff;
+  --ui-surface-2: #fbfcff;
+  --ui-text: #0f172a;
+  --ui-muted: #64748b;
+  --ui-border: rgba(15,23,42,.10);
+
+  /* Shapes + effects */
+  --ui-radius-sm: 10px;
+  --ui-radius-lg: 16px;
+  --ui-shadow-sm: 0 6px 16px rgba(15,23,42,.08);
+  --ui-shadow: 0 14px 35px rgba(15,23,42,.10);
+  --ui-ring: 0 0 0 .25rem rgba(37,99,235,.18);
+
+  /* Bootstrap variable nudges (keep it subtle) */
+  --bs-border-color: var(--ui-border);
+  --bs-body-color: var(--ui-text);
+  --bs-secondary-color: var(--ui-muted);
+  --bs-body-font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+html{
+  position: relative;
+  min-height: 100%;
+  font-size: 15px;
+  scroll-behavior: smooth;
+}
+
+@media (min-width: 768px){
+  html{ font-size: 16px; }
+}
+
+body{
+  margin: 0;
+  color: var(--ui-text);
+}
+
+body.app-body{
+  background:
+    radial-gradient(1200px 700px at 15% 0%, rgba(37,99,235,.12) 0%, rgba(37,99,235,0) 55%),
+    radial-gradient(900px 600px at 100% 0%, rgba(6,182,212,.10) 0%, rgba(6,182,212,0) 55%),
+    var(--ui-bg);
+}
+
+/* Links */
+a{ color: #1d4ed8; }
+a:hover{ color: #1e40af; }
+
+/* Focus rings */
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus,
+.form-control:focus, .form-select:focus, .form-check-input:focus{
+  box-shadow: var(--ui-ring);
+}
+
+/* Buttons (global rounding + weight) */
+.btn{
+  border-radius: var(--ui-radius-sm);
+  font-weight: 700;
+}
+
+.btn-primary{
+  background: linear-gradient(135deg, var(--ui-primary) 0%, #1d4ed8 55%, #1e40af 100%);
+  border: none;
+  box-shadow: 0 10px 18px rgba(37,99,235,.18);
+}
+.btn-primary:hover{
+  filter: brightness(.98);
+  transform: translateY(-1px);
+}
+
+.btn-success{
+  background: linear-gradient(135deg, var(--ui-success) 0%, #15803d 100%);
+  border: none;
+}
+
+.btn-danger{
+  background: linear-gradient(135deg, var(--ui-danger) 0%, #b91c1c 100%);
+  border: none;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-secondary:hover,
+.btn-outline-success:hover,
+.btn-outline-danger:hover{
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ scroll-behavior: auto !important; }
+  .btn{ transition: none !important; }
+}
+
+/* Inputs */
+.form-control, .form-select{
+  border-radius: var(--ui-radius-sm);
+  border-color: var(--ui-border);
+  background-color: rgba(255,255,255,.92);
+}
+
+.form-control:focus, .form-select:focus{
+  border-color: rgba(37,99,235,.55);
+}
+
+/* Cards / surfaces */
+.ui-card{
+  background: var(--ui-surface);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius-lg);
+  box-shadow: var(--ui-shadow);
+}
+
+.ui-card.padded{ padding: 22px; }
+
+/* Tables inside content */
+.table{
+  --bs-table-bg: transparent;
+}
+
+.ui-table{
+  background: var(--ui-surface);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--ui-shadow-sm);
+}
+
+.ui-table thead th{
+  background: linear-gradient(180deg, #fbfcff 0%, #f6f8ff 100%);
+  border-bottom: 1px solid var(--ui-border) !important;
+  font-weight: 800;
+  color: rgba(15,23,42,.88);
+  white-space: nowrap;
+}
+
+.ui-empty{
+  border: 1px dashed rgba(15,23,42,.25);
+  background: rgba(255,255,255,.75);
+  border-radius: var(--ui-radius-lg);
+  padding: 18px;
+}
+
+/* Badges (soft) */
+.badge-soft{
+  border-radius: 999px;
+  font-weight: 800;
+  padding: 6px 10px;
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  border: 1px solid rgba(15,23,42,.08);
+}
+
+/* RTL tweaks (minimal, safe) */
+html[dir="rtl"] body{
+  font-family: "Segoe UI", Tahoma, Arial, system-ui;
+}
+
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder{
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder{
+  text-align: start;
+}

@@ -1,0 +1,125 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer L
+@inject Microsoft.Extensions.Localization.IStringLocalizer<Invoice_printer.Resources.SharedResource> SR
+@model List<Invoice_printer.Models.Template>
+@using Invoice_printer.Models
+@using Invoice_printer.extensions
+
+@{
+    ViewData["Title"] = L["Title"];
+    var selectedType = ViewBag.Type as ReceiptType?;
+}
+
+<div class="template-index-wrap">
+
+    <div class="template-index-header">
+        <h2 class="template-index-title">@L["Heading"]</h2>
+        <a class="btn btn-primary" asp-action="Create">@L["AddTemplate"]</a>
+    </div>
+
+    <div class="template-filters">
+        <a class="btn btn-outline-secondary filter-pill @(selectedType == null ? "active" : "")"
+           asp-action="Index"
+           asp-route-type="">
+            @L["All"]
+        </a>
+
+        <a class="btn btn-outline-secondary filter-pill @(selectedType == ReceiptType.Collection ? "active" : "")"
+           asp-action="Index"
+           asp-route-type="@ReceiptType.Collection">@SR.LocalizeEnum(ReceiptType.Collection)</a>
+
+        <a class="btn btn-outline-secondary filter-pill @(selectedType == ReceiptType.Payment ? "active" : "")"
+           asp-action="Index"
+           asp-route-type="@ReceiptType.Payment">@SR.LocalizeEnum(ReceiptType.Payment)</a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            @L["Empty"]
+        </div>
+    }
+    else
+    {
+        <div class="template-card ui-table">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle template-table">
+                <thead>
+                    <tr>
+                        <th>@L["Name"]</th>
+                        <th>@L["Type"]</th>
+                        <th>@L["Mode"]</th>
+                        <th>@L["Default"]</th>
+                        <th class="text-end" style="width:220px;">@L["Actions"]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var t in Model)
+                    {
+                        <tr>
+                            <td>@t.Name</td>
+                            <td>
+                                <span class="badge-soft @(t.Type == ReceiptType.Collection ? "badge-collection" : "badge-payment")">
+                                    @SR.LocalizeEnum(t.Type)
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge-soft @(t.TemplateMode.ToString().ToLower().Contains("html") ? "badge-html" : "badge-image")">
+                                    @SR.LocalizeEnum(t.TemplateMode)
+                                </span>
+                            </td>
+                            <td>
+                                @if (t.IsDefault)
+                                {
+                                    <span class="badge-soft badge-default">@L["Yes"]</span>
+                                }
+                                else
+                                {
+                                    <span class="badge-soft badge-nodefault">@L["No"]</span>
+                                }
+                            </td>
+                            <td class="text-end">
+
+                                @if (!t.IsDefault)
+                                {
+                                    <form asp-action="SetDefault"
+                                          asp-route-id="@t.Id"
+                                          method="post"
+                                          class="d-inline">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-sm btn-outline-success">
+                                            @L["SetDefault"]
+                                        </button>
+                                    </form>
+                                }
+
+                                <a class="btn btn-sm btn-outline-secondary"
+                                   asp-action="Edit"
+                                   asp-route-id="@t.Id">
+                                    @L["Edit"]
+                                </a>
+
+                                <form asp-action="Delete"
+                                      asp-route-id="@t.Id"
+                                      method="post"
+                                      class="d-inline"
+                                      onsubmit="return confirm('@L["ConfirmDelete"]');">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        @L["Delete"]
+                                    </button>
+                                </form>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/template-index.css" asp-append-version="true" />
+}
