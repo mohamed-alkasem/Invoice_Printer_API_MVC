@@ -1,0 +1,46 @@
+﻿.register-page {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.register-card {
+    width: 100%;
+    max-width: 520px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px;
+    border: 1px solid #eee;
+    box-shadow: 0 12px 30px rgba(0,0,0,.08);
+}
+
+.register-title {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.btn-register {
+    width: 100%;
+    padding: 10px 12px;
+    font-weight: 700;
+    border-radius: 10px;
+    margin-top: 6px;
+}
+
+.validation-summary {
+    margin-top: 14px;
+}

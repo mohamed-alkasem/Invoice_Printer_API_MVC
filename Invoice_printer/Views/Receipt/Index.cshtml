@@ -1,0 +1,91 @@
+﻿@model List<Invoice_printer.Models.Receipt>
+@using Invoice_printer.Models
+
+@{
+    ViewData["Title"] = "Receipts";
+}
+
+<div class="receipt-index-wrap">
+
+    <div class="receipt-index-header">
+        <h2 class="receipt-index-title">Receipts</h2>
+
+        <div class="receipt-index-actions">
+            <a class="btn btn-primary" href="/Receipt/Create/Collection">New Collection</a>
+            <a class="btn btn-success" href="/Receipt/Create/Payment">New Payment</a>
+        </div>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="receipt-empty">No receipts found.</div>
+    }
+    else
+    {
+        <div class="receipt-card">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle receipt-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th class="text-end">Amount</th>
+                            <th class="text-end" style="width:130px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var r in Model)
+                        {
+                            var isFinal = r.Status == ReceiptStatus.Final;
+                            var isCollection = r.Type == ReceiptType.Collection;
+
+                            <tr>
+                                <td><b>@r.ReceiptNo</b></td>
+                                <td>@r.Date.ToString("yyyy-MM-dd")</td>
+
+                                <td>
+                                    @if (isCollection)
+                                    {
+                                        <span class="badge-soft badge-collection">Collection</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge-soft badge-payment">Payment</span>
+                                    }
+                                </td>
+
+                                <td>
+                                    @if (isFinal)
+                                    {
+                                        <span class="badge-soft badge-final">Final</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge-soft badge-draft">Draft</span>
+                                    }
+                                </td>
+
+                                <td class="text-end">
+                                    <b>@r.Amount.ToString("0.##")</b> @r.Currency
+                                </td>
+
+                                <td class="text-end">
+                                    <a class="btn btn-sm btn-outline-primary receipt-open-btn"
+                                       asp-action="Details"
+                                       asp-route-id="@r.Id">Open</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/receipt-index.css" asp-append-version="true" />
+}

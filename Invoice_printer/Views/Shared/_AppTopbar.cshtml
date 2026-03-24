@@ -1,0 +1,13 @@
+﻿<div class="topbar-inner">
+    <div class="topbar-left">
+        <div class="page-title">@((ViewData["Title"] as string) ?? "Dashboard")</div>
+        <div class="page-subtitle text-muted">Manage your receipts & templates</div>
+    </div>
+
+    <div class="topbar-right">
+        <div class="user-pill">
+            <span class="user-avatar">👤</span>
+            <span class="user-name">@User.Identity?.Name</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+﻿/* ===== Template Form (Create/Edit) ===== */
+
+.template-form-wrap {
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.template-form-title {
+    font-size: 26px;
+    font-weight: 900;
+    margin: 0 0 14px 0;
+}
+
+.template-form-card {
+    border: 1px solid #eee;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.06);
+    padding: 22px;
+    background: #fff;
+}
+
+    .template-form-card .form-control,
+    .template-form-card .form-select {
+        border-radius: 10px;
+        padding: 10px 12px;
+    }
+
+.section-line {
+    border-top: 1px solid #eee;
+    margin: 16px 0;
+}
+
+.section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: 900;
+    margin: 0;
+}
+
+.help-hint {
+    color: #6c757d;
+    font-size: 13px;
+}
+
+.preview-box {
+    border: 1px solid #eee;
+    border-radius: 14px;
+    padding: 12px;
+    background: #fafafa;
+}
+
+    .preview-box img {
+        width: 100%;
+        max-height: 190px;
+        object-fit: contain;
+        border-radius: 12px;
+        border: 1px solid #ddd;
+        background: #fff;
+    }
+
+.template-form-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+    .template-form-actions .btn {
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-weight: 800;
+    }

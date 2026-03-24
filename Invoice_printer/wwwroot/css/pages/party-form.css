@@ -1,0 +1,31 @@
+﻿/* ===== Party Form (Create/Edit) ===== */
+
+.party-form-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.party-form-title {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 14px;
+}
+
+.party-form-card {
+    border: 1px solid #eee;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.06);
+    padding: 22px;
+    background: #fff;
+}
+
+    .party-form-card .form-control {
+        border-radius: 10px;
+        padding: 10px 12px;
+    }
+
+.party-form-actions .btn {
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-weight: 600;
+}

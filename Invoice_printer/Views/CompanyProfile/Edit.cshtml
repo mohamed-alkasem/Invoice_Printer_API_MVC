@@ -1,0 +1,53 @@
+﻿@model Invoice_printer.DTO_S.CompanyProfileCreateOrUpdateDto
+
+@if (TempData["dbg"] is not null)
+{
+    <div class="alert alert-warning">@TempData["dbg"]</div>
+}
+
+<h2 class="mb-3">Company Profile</h2>
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data" class="card p-3">
+    @Html.AntiForgeryToken()
+
+    <div class="mb-3">
+        <label asp-for="Phone" class="form-label"></label>
+        <input asp-for="Phone" class="form-control" />
+        <span asp-validation-for="Phone" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="TaxNo" class="form-label"></label>
+        <input asp-for="TaxNo" class="form-control" />
+        <span asp-validation-for="TaxNo" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="LogoFile" class="form-label">Logo</label>
+        <input asp-for="LogoFile" type="file" class="form-control" accept=".png,.jpg,.jpeg,.webp" />
+        <span asp-validation-for="LogoFile" class="text-danger"></span>
+
+        @if (!string.IsNullOrWhiteSpace(Model.LogoPath))
+        {
+            <div class="mt-2">
+                <div class="small text-muted mb-1">Current Logo:</div>
+                <img src="~/@Model.LogoPath" alt="Company Logo" style="max-height:90px; max-width:220px;" />
+            </div>
+        }
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DefaultCurrency" class="form-label"></label>
+        <input asp-for="DefaultCurrency" class="form-control" placeholder="TRY" />
+        <span asp-validation-for="DefaultCurrency" class="text-danger"></span>
+    </div>
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a asp-controller="Receipt" asp-action="Create" class="btn btn-secondary">Go to Create Receipt</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

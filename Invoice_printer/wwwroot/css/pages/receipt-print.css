@@ -1,0 +1,213 @@
+﻿/* =========================
+   Receipt Print Styles
+   File: wwwroot/pages/receipt-print.css
+   ========================= */
+
+/* Page setup (print) */
+@page {
+    margin: 0;
+}
+
+/* Base */
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    color: #111;
+    /* Important for printing backgrounds/colors */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    /* Background image is set inline in cshtml */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+/* Content padding inside the printed page */
+.page-content {
+    padding: 24px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.logo {
+    height: 70px;
+    max-width: 220px;
+    object-fit: contain;
+}
+
+.company {
+    text-align: right;
+}
+
+    .company .name {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+.muted {
+    color: #666;
+    font-size: 12px;
+}
+
+/* Divider line */
+.line {
+    border-top: 1px solid #ddd;
+    margin: 14px 0;
+}
+
+/* Title */
+.title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 800;
+    margin: 8px 0;
+}
+
+/* Meta section */
+.meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    font-size: 13px;
+}
+
+.box {
+    border: 1px solid #e2e2e2;
+    padding: 10px;
+    border-radius: 6px;
+    flex: 1;
+    background: rgba(255,255,255,0.92);
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    font-size: 13px;
+    background: rgba(255,255,255,0.92);
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+th {
+    background: #f5f5f5;
+    font-weight: 700;
+}
+
+.right {
+    text-align: right;
+}
+
+.empty {
+    text-align: center;
+    color: #666;
+}
+
+/* Total box */
+.total {
+    margin-top: 10px;
+    text-align: right;
+    font-size: 16px;
+    background: rgba(255,255,255,0.92);
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 6px;
+    float: right; /* keeps it aligned to the right nicely */
+}
+
+    .total b {
+        font-size: 18px;
+    }
+
+/* Total in words + QR */
+.qr-wrap {
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    align-items: flex-end;
+    clear: both; /* because .total uses float */
+}
+
+.words-box {
+    flex: 1;
+    background: rgba(255,255,255,0.92);
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.35;
+}
+
+.words-content {
+    margin-top: 4px;
+}
+
+.qr-box {
+    width: 170px;
+    text-align: right;
+    background: rgba(255,255,255,0.92);
+    padding: 10px;
+    border-radius: 6px;
+}
+
+    .qr-box img {
+        width: 120px;
+        height: 120px;
+        object-fit: contain;
+        display: inline-block;
+    }
+
+.qr-caption {
+    margin-top: 6px;
+    font-size: 11px;
+    color: #666;
+    word-break: break-all;
+}
+
+/* Footer */
+.footer {
+    margin-top: 34px;
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+.sig {
+    width: 48%;
+    background: rgba(255,255,255,0.92);
+    padding: 10px;
+    border-radius: 6px;
+}
+
+    .sig .line2 {
+        border-top: 1px solid #111;
+        margin-top: 28px;
+    }
+
+/* Print tweaks */
+@media print {
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    /* Avoid breaking inside important blocks */
+    .header, .meta, table, .total, .qr-wrap, .footer {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+}

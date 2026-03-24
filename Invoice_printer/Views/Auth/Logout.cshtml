@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Logout";
+}
+
+<!-- Debug: إذا شفت هالسطر بالصفحة معناها View Logout انفتحت -->
+<div style="display:none" id="logoutViewLoaded">LogoutViewLoaded</div>
+
+<form id="logoutForm" asp-controller="Auth" asp-action="LogoutConfirmed" method="post" style="display:none;">
+    @Html.AntiForgeryToken()
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    (function () {
+        // Debug لو swal ما نزل
+        if (typeof Swal === "undefined") {
+            alert("SweetAlert yüklenemedi (Swal undefined).");
+            window.location.href = '@Url.Action("Index", "Home")';
+            return;
+        }
+
+        Swal.fire({
+            title: 'Çıkış yapmak istiyor musunuz?',
+            text: "Oturumunuz kapatılacak.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Evet, çıkış yap',
+            cancelButtonText: 'İptal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById("logoutForm").submit();
+            } else {
+                window.location.href = '@Url.Action("Index", "Home")';
+            }
+        });
+    })();
+</script>

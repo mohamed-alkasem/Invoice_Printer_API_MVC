@@ -1,0 +1,120 @@
+﻿/* ===== Template Index ===== */
+
+.template-index-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.template-index-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+}
+
+.template-index-title {
+    font-size: 26px;
+    font-weight: 900;
+    margin: 0;
+}
+
+.template-index-header .btn {
+    border-radius: 10px;
+    font-weight: 800;
+}
+
+.template-filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+}
+
+.filter-pill {
+    border-radius: 999px !important;
+    font-weight: 800;
+    padding: 8px 14px;
+}
+
+.template-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.06);
+    overflow: hidden;
+}
+
+.template-table {
+    margin: 0;
+}
+
+    .template-table thead th {
+        background: #fafafa;
+        border-bottom: 1px solid #eee !important;
+        font-weight: 800;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+    .template-table tbody td {
+        border-top: 1px solid #f1f1f1 !important;
+        vertical-align: middle;
+    }
+
+.badge-soft {
+    border-radius: 999px;
+    font-weight: 900;
+    padding: 6px 10px;
+    display: inline-block;
+}
+
+.badge-collection {
+    background: #e7f1ff;
+    color: #1b5dbf;
+}
+
+.badge-payment {
+    background: #e8fbf0;
+    color: #157347;
+}
+
+.badge-html {
+    background: #fff4e6;
+    color: #b45309;
+}
+
+.badge-image {
+    background: #f2f2f2;
+    color: #444;
+}
+
+.badge-default {
+    background: #dff7e6;
+    color: #1f7a3a;
+}
+
+.badge-nodefault {
+    background: #f2f2f2;
+    color: #444;
+}
+
+.template-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+    .template-actions .btn {
+        border-radius: 10px;
+        font-weight: 800;
+    }
+
+.template-empty {
+    border: 1px dashed #d9d9d9;
+    background: #fbfbfb;
+    border-radius: 16px;
+    padding: 18px;
+}

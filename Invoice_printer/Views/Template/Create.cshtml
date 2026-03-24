@@ -1,0 +1,141 @@
+﻿@model Invoice_printer.DTO_S.TemplateCreateDto
+@using Invoice_printer.Models
+
+@{
+    ViewData["Title"] = "Create Template";
+}
+
+<div class="template-create-wrap">
+    <h2 class="template-title">Create Template</h2>
+
+    <form asp-action="Create" method="post" enctype="multipart/form-data" class="template-card">
+        @Html.AntiForgeryToken()
+
+        <!-- ===== Basic Info ===== -->
+        <div class="section-head">
+            <h4 class="section-title">Basic Info</h4>
+            <div class="help-hint">Name, type and mode</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="Type" class="form-label"></label>
+                <select asp-for="Type" class="form-select">
+                    <option value="">-- Seçiniz --</option>
+                    @foreach (var item in Html.GetEnumSelectList<ReceiptType>())
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="TemplateMode" class="form-label"></label>
+            <select asp-for="TemplateMode" id="templateMode" class="form-select">
+                <option value="">-- Seçiniz --</option>
+                @foreach (var item in Html.GetEnumSelectList<TemplateMode>())
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+            <span asp-validation-for="TemplateMode" class="text-danger"></span>
+        </div>
+
+        <div class="section-line"></div>
+
+        <!-- ===== HTML Template ===== -->
+        <div class="section-head">
+            <h4 class="section-title">HTML Template</h4>
+            <div class="help-hint">Visible only when mode is HTML</div>
+        </div>
+
+        <div class="mb-3" id="htmlBox" style="display:none;">
+            <label asp-for="HtmlContent" class="form-label">HTML Template</label>
+            <textarea asp-for="HtmlContent"
+                      class="form-control"
+                      rows="14"
+                      placeholder="Write your full HTML here (you can include <style> inside)."></textarea>
+            <span asp-validation-for="HtmlContent" class="text-danger"></span>
+
+            <div class="mt-2 code-box">
+                Placeholders:
+                <code>{{CompanyName}}</code>,
+                <code>{{CompanyAddres}}</code>,
+                <code>{{LogoUrl}}</code>,
+                <code>{{ReceiptNo}}</code>,
+                <code>{{ItemsRows}}</code>,
+                <code>{{Total}}</code>
+            </div>
+        </div>
+
+        <div class="section-line"></div>
+
+        <!-- ===== Background / Settings ===== -->
+        <div class="section-head">
+            <h4 class="section-title">Background & Settings</h4>
+            <div class="help-hint">Optional</div>
+        </div>
+
+        <div class="mb-3" id="bgBox">
+            <label asp-for="BackgroundImageFile" class="form-label">Background Image (Optional)</label>
+            <input asp-for="BackgroundImageFile" type="file" class="form-control" accept="image/*" />
+            <span asp-validation-for="BackgroundImageFile" class="text-danger"></span>
+            <div class="form-text">Upload a background image. It will be used when exporting/printing.</div>
+        </div>
+
+        <div class="mb-3" id="jsonBox">
+            <label asp-for="SettingsJson" class="form-label"></label>
+            <textarea asp-for="SettingsJson"
+                      class="form-control"
+                      rows="4"
+                      placeholder="Optional (can be empty for now)"></textarea>
+            <span asp-validation-for="SettingsJson" class="text-danger"></span>
+        </div>
+
+        <div class="form-check mb-3">
+            <input asp-for="IsDefault" class="form-check-input" />
+            <label asp-for="IsDefault" class="form-check-label"></label>
+        </div>
+
+        <div class="template-actions">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/template-form.css" asp-append-version="true" />
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        (function () {
+            const modeSelect = document.getElementById('templateMode');
+            const htmlBox = document.getElementById('htmlBox');
+
+            function sync() {
+                const selectedOption = modeSelect.options[modeSelect.selectedIndex];
+                const modeText = (selectedOption?.text || '').toLowerCase();
+
+                const isPlaceholder = !modeSelect.value;
+                const isHtml = !isPlaceholder && modeText.includes('html');
+
+                htmlBox.style.display = isHtml ? 'block' : 'none';
+            }
+
+            modeSelect.addEventListener('change', sync);
+            sync();
+        })();
+    </script>
+}
