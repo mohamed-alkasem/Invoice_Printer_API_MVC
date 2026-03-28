@@ -1,4 +1,4 @@
-﻿using Invoice_printer.Models;
+using Invoice_printer.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +12,6 @@ namespace Invoice_printer.Data
 
         public DbSet<CompanyProfile> CompanyProfiles { get; set; } = default!;
         public DbSet<Party> Parties { get; set; }
-        public DbSet<Template> Templates { get; set; }
         public DbSet<Receipt> Receipts { get; set; }
         public DbSet<ReceiptItem> ReceiptItems { get; set; }
         public DbSet<ReceiptExport> ReceiptExports { get; set; }
@@ -37,12 +36,6 @@ namespace Invoice_printer.Data
                 .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<Template>()
-                .HasOne(x => x.User)
-                .WithMany()
-                .HasForeignKey(x => x.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-
             builder.Entity<Receipt>()
                 .HasOne(x => x.User)
                 .WithMany()
@@ -59,12 +52,6 @@ namespace Invoice_printer.Data
                 .HasOne(x => x.Party)
                 .WithMany(x => x.Receipts)
                 .HasForeignKey(x => x.PartyId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.Entity<Receipt>()
-                .HasOne(x => x.Template)
-                .WithMany(x => x.Receipts)
-                .HasForeignKey(x => x.TemplateId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Receipt>()

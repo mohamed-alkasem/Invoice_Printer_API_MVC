@@ -1,4 +1,4 @@
-﻿@model Invoice_printer.DTO_S.PartyUpdateDto
+@model Invoice_printer.DTO_S.PartyUpdateDto
 
 @{
     ViewData["Title"] = "Edit Party";
@@ -8,7 +8,7 @@
     <h2 class="party-form-title">Edit Party</h2>
 
     <form asp-action="Edit" method="post" class="party-form-card">
-        @Html.AntiForgeryToken()
+
 
         <input type="hidden" asp-for="Id" />
 

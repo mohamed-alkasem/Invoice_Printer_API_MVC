@@ -1,4 +1,4 @@
-﻿@model Invoice_printer.DTO_S.ReceiptCreateDto
+@model Invoice_printer.DTO_S.ReceiptCreateDto
 @using Invoice_printer.Models
 @using Microsoft.AspNetCore.Mvc.Rendering
 
@@ -6,15 +6,14 @@
     ViewData["Title"] = "Create Receipt";
 
     var parties = ViewBag.Parties as List<Party> ?? new List<Party>();
-    var templates = ViewBag.Templates as List<Template> ?? new List<Template>();
 }
 
 <div class="receipt-create-wrap">
     <h2 class="receipt-title">Create Receipt</h2>
 
     <form asp-action="Create" asp-route-type="@Model.Type" method="post" class="receipt-card">
-        @Html.AntiForgeryToken()
-
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-3"></div>
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
         <!-- ===================== TYPE SELECT ===================== -->
         <div class="mb-3">
             <label asp-for="Type" class="form-label"></label>
@@ -71,19 +70,7 @@
             <span asp-validation-for="PartyId" class="text-danger"></span>
         </div>
 
-        <!-- ===================== TEMPLATE ===================== -->
-        <div class="mb-3">
-            <label asp-for="TemplateId" class="form-label"></label>
-            <select asp-for="TemplateId"
-                    class="form-select"
-                    asp-items="new SelectList(templates, nameof(Template.Id), nameof(Template.Name))">
-                <option value="">-- Select Template --</option>
-            </select>
-            <span asp-validation-for="TemplateId" class="text-danger"></span>
-            <div class="form-text">
-                Templates are filtered automatically by selected receipt type.
-            </div>
-        </div>
+        <hr class="receipt-hr" />
 
         <!-- ===================== PAYMENT METHOD ===================== -->
         <div class="row">

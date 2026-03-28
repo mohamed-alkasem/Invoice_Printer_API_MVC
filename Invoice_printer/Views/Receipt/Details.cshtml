@@ -1,4 +1,4 @@
-﻿@model Invoice_printer.Models.Receipt
+@model Invoice_printer.Models.Receipt
 @using Invoice_printer.Models
 
 @{
@@ -28,7 +28,7 @@
             @if (Model.Status == ReceiptStatus.Draft)
             {
                 <form asp-action="Finalize" asp-route-id="@Model.Id" method="post" class="d-inline">
-                    @Html.AntiForgeryToken()
+
                     <button type="submit" class="btn btn-success"
                             onclick="return confirm('Finalize this receipt? After final, editing should be blocked.');">
                         Finalize
@@ -36,7 +36,7 @@
                 </form>
 
                 <form asp-action="Delete" asp-route-id="@Model.Id" method="post" class="d-inline">
-                    @Html.AntiForgeryToken()
+
                     <button type="submit" class="btn btn-danger"
                             onclick="return confirm('Delete this receipt?');">
                         Delete
@@ -82,7 +82,6 @@
             </div>
             <div class="col-md-6">
                 <div class="meta-label">Template</div>
-                <div class="meta-value">@(Model.Template?.Name ?? "-")</div>
             </div>
         </div>
 

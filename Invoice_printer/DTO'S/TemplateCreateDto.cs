@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using Invoice_printer.Models;
 using Microsoft.AspNetCore.Http;
 
@@ -26,5 +26,7 @@ namespace Invoice_printer.DTO_S
         public bool IsDefault { get; set; }
 
         public string? HtmlContent { get; set; }
+
+        public string? RequiredCustomFields { get; set; }
     }
 }

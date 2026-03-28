@@ -1,4 +1,4 @@
-﻿using System.Security.Claims;
+using System.Security.Claims;
 using Invoice_printer.DTO_S;
 using Invoice_printer.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -6,11 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Invoice_printer.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "CookiePolicy")]
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [Route("CompanyProfile")]   // explicit prefix disambiguates from Api/CompanyProfileController
     public class CompanyProfileController(ICompanyProfileService _companyProfileService) : Controller
     {
         private string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
+        [HttpGet("Edit")]   // GET /CompanyProfile/Edit
         public async Task<IActionResult> Edit()
         {
             var profile = await _companyProfileService.GetAsync(UserId);
@@ -26,7 +29,7 @@ namespace Invoice_printer.Controllers
             return View(dto);
         }
 
-        [HttpPost]
+        [HttpPost("Edit")]   // POST /CompanyProfile/Edit
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(CompanyProfileCreateOrUpdateDto dto)
         {

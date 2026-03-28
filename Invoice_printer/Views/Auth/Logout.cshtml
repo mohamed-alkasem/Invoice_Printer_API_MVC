@@ -1,22 +1,18 @@
-﻿@{
+@{
     ViewData["Title"] = "Logout";
 }
 
-<!-- Debug: إذا شفت هالسطر بالصفحة معناها View Logout انفتحت -->
-<div style="display:none" id="logoutViewLoaded">LogoutViewLoaded</div>
-
-<form id="logoutForm" asp-controller="Auth" asp-action="LogoutConfirmed" method="post" style="display:none;">
-    @Html.AntiForgeryToken()
+@* Hidden logout form — posted by JS after the user confirms *@
+<form id="logoutForm" asp-controller="Auth" asp-action="LogoutPost" method="post" style="display:none;">
 </form>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     (function () {
-        // Debug لو swal ما نزل
         if (typeof Swal === "undefined") {
-            alert("SweetAlert yüklenemedi (Swal undefined).");
-            window.location.href = '@Url.Action("Index", "Home")';
+            // CDN failed — submit immediately so the user IS logged out
+            document.getElementById("logoutForm").submit();
             return;
         }
 

@@ -1,4 +1,4 @@
-﻿using System.Security.Claims;
+using System.Security.Claims;
 using Invoice_printer.DTO_S;
 using Invoice_printer.Iservives;
 using Invoice_printer.Models;
@@ -8,14 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Invoice_printer.Controllers
 {
-    [Authorize]
-    [Route("[controller]")]
+    [Authorize(Policy = "CookiePolicy")]
     [ApiExplorerSettings(IgnoreApi = true)]
 
     public class ReceiptController(
         IReceiptService _receiptService,
         IPartyService _partyService,
-        ITemplateService _templateService,
         ICompanyProfileService _companyProfileService,
         IReceiptExportService _exportService
     ) : Controller
@@ -30,7 +28,7 @@ namespace Invoice_printer.Controllers
             return View(receipts);
         }
 
-        [HttpGet("Details/{id:int}")]
+        [HttpGet("[controller]/Details/{id:int}")]
         public async Task<IActionResult> Details(int id)
         {
             var receipt = await _receiptService.GetByIdAsync(UserId, id);
@@ -38,13 +36,13 @@ namespace Invoice_printer.Controllers
             return View(receipt);
         }
 
-        [HttpGet("Create")]
+        [HttpGet("[controller]/Create")]
         public IActionResult Create()
         {
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet("Create/{type}")]
+        [HttpGet("[controller]/Create/{type}")]
         public async Task<IActionResult> CreateByType(ReceiptType type)
         {
             var profile = await _companyProfileService.GetAsync(UserId);
@@ -52,7 +50,6 @@ namespace Invoice_printer.Controllers
                 return RedirectToAction("Edit", "CompanyProfile");
 
             ViewBag.Parties = await _partyService.GetAllAsync(UserId);
-            ViewBag.Templates = await _templateService.GetAllAsync(UserId, type);
 
             var dto = new ReceiptCreateDto
             {
@@ -65,7 +62,7 @@ namespace Invoice_printer.Controllers
             return View("Create", dto);
         }
 
-        [HttpPost("Create/{type}")]
+        [HttpPost("[controller]/Create/{type}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ReceiptType type, ReceiptCreateDto dto)
         {
@@ -80,7 +77,6 @@ namespace Invoice_printer.Controllers
             async Task FillViewBags()
             {
                 ViewBag.Parties = await _partyService.GetAllAsync(UserId);
-                ViewBag.Templates = await _templateService.GetAllAsync(UserId, dto.Type);
             }
 
             if (!ModelState.IsValid)
@@ -96,13 +92,14 @@ namespace Invoice_printer.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", ex.Message);
+                var message = ex.InnerException?.Message ?? ex.Message;
+                ModelState.AddModelError("", message);
                 await FillViewBags();
                 return View("Create", dto);
             }
         }
 
-        [HttpPost("Finalize/{id:int}")]
+        [HttpPost("[controller]/Finalize/{id:int}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Finalize(int id)
         {
@@ -112,7 +109,7 @@ namespace Invoice_printer.Controllers
             return RedirectToAction(nameof(Details), new { id });
         }
 
-        [HttpPost("Delete/{id:int}")]
+        [HttpPost("[controller]/Delete/{id:int}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
@@ -122,7 +119,7 @@ namespace Invoice_printer.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet("Export/{id:int}")]
+        [HttpGet("[controller]/Export/{id:int}")]
         public async Task<IActionResult> Export(int id, ExportFileType type, bool download = false)
         {
             var userId = UserId;

@@ -1,4 +1,4 @@
-﻿@model Invoice_printer.DTO_S.PartyCreateDto
+@model Invoice_printer.DTO_S.PartyCreateDto
 
 @{
     ViewData["Title"] = "Create Party";
@@ -8,7 +8,6 @@
     <h2 class="party-create-title">Create Party</h2>
 
     <form asp-action="Create" method="post" class="card party-card">
-        @Html.AntiForgeryToken()
 
         <div class="mb-3">
             <label asp-for="Name" class="form-label"></label>

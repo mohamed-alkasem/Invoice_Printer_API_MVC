@@ -1,4 +1,4 @@
-﻿@{
+@{
     string C() => (ViewContext.RouteData.Values["controller"]?.ToString() ?? "");
     string A() => (ViewContext.RouteData.Values["action"]?.ToString() ?? "");
 
@@ -30,11 +30,6 @@
     <a class="sidebar-link @Active("Receipt")" asp-controller="Receipt" asp-action="Index">
         <span class="icon">🧾</span>
         <span>Receipts</span>
-    </a>
-
-    <a class="sidebar-link @Active("Template")" asp-controller="Template" asp-action="Index">
-        <span class="icon">🎨</span>
-        <span>Templates</span>
     </a>
 
     <a class="sidebar-link @Active("Party")" asp-controller="Party" asp-action="Index">

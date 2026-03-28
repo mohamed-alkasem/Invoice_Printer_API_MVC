@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Invoice_printer.Models;
 
@@ -8,9 +8,6 @@ namespace Invoice_printer.DTO_S
     {
         // Logo
         public string LogoUrl { get; set; } = "";
-
-        // ✅ Background (Template)
-        public string BackgroundImageUrl { get; set; } = "";
 
         // Company (User)
         public string CompanyName { get; set; } = "";

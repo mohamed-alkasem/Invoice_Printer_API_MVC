@@ -1,18 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using Invoice_printer.Models;
 
 namespace Invoice_printer.DTO_S
 {
     public class ReceiptCreateDto
     {
-        [Required]
+        // [Required] on int does NOT catch 0 — use [Range] to enforce a real selection.
+        [Range(1, int.MaxValue, ErrorMessage = "Company profile is required.")]
         public int CompanyProfileId { get; set; }
 
-        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Please select a party.")]
         public int PartyId { get; set; }
-
-        [Required]
-        public int TemplateId { get; set; }
 
         [Required]
         public ReceiptType Type { get; set; }

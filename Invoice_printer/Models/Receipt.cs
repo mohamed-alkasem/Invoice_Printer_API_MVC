@@ -1,4 +1,4 @@
-﻿
+
 
 using System.ComponentModel.DataAnnotations;
 
@@ -20,10 +20,6 @@ namespace Invoice_printer.Models
         [Required]
         public int PartyId { get; set; }
         public Party Party { get; set; } = default!;
-
-        [Required]
-        public int TemplateId { get; set; }
-        public Template Template { get; set; } = default!;
 
         [Required]
         public ReceiptType Type { get; set; } 

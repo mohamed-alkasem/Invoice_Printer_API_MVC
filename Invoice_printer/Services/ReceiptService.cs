@@ -1,4 +1,4 @@
-﻿using Invoice_printer.Data;
+using Invoice_printer.Data;
 using Invoice_printer.DTO_S;
 using Invoice_printer.Models;
 using Invoice_printer.Services.Interfaces;
@@ -12,8 +12,7 @@ namespace Invoice_printer.Services
         {
             IQueryable<Receipt> query = _db.Receipts
                 .Where(x => x.UserId == userId)
-                .Include(x => x.Party)
-                .Include(x => x.Template);
+                .Include(x => x.Party);
 
             if (type.HasValue)
                 query = query.Where(x => x.Type == type.Value);
@@ -28,7 +27,6 @@ namespace Invoice_printer.Services
         {
             return await _db.Receipts
                 .Include(x => x.Party)
-                .Include(x => x.Template)
                 .Include(x => x.CompanyProfile)
                 .Include(x => x.Items)
                 .Include(x => x.Exports)
@@ -38,7 +36,6 @@ namespace Invoice_printer.Services
         public async Task<int> CreateAsync(string userId, ReceiptCreateDto dto)
         {
             var type = dto.Type;
-            var templateId = dto.TemplateId;
             var partyId = dto.PartyId;
 
             var company = await _db.CompanyProfiles
@@ -55,16 +52,6 @@ namespace Invoice_printer.Services
             if (!partyExists)
                 throw new InvalidOperationException("Party not found for this user.");
 
-            var template = await _db.Templates
-                .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Id == templateId && x.UserId == userId);
-
-            if (template is null)
-                throw new InvalidOperationException("Template not found for this user.");
-
-            if (template.Type != type)
-                throw new InvalidOperationException("Template type does not match receipt type.");
-
             var receiptNo = await GenerateReceiptNoAsync(userId, type);
 
             var receipt = new Receipt
@@ -72,8 +59,6 @@ namespace Invoice_printer.Services
                 UserId = userId,
                 CompanyProfileId = dto.CompanyProfileId,
                 PartyId = partyId,
-                TemplateId = templateId,
-
                 Type = type,
                 ReceiptNo = receiptNo,
                 Date = dto.Date,
@@ -177,14 +162,30 @@ namespace Invoice_printer.Services
         private async Task<string> GenerateReceiptNoAsync(string userId, ReceiptType type)
         {
             var year = DateTime.UtcNow.Year;
-
-            var count = await _db.Receipts
-                .CountAsync(x => x.UserId == userId && x.Type == type && x.Date.Year == year);
-
             var prefix = type == ReceiptType.Payment ? "PAY" : "COL";
-            var number = (count + 1).ToString("D6");
 
-            return $"{prefix}-{year}-{number}";
+            // Find the highest existing number for this user, type, and year
+            // Format is PREFIX-YEAR-NUMBER (e.g., COL-2026-000005)
+            var lastReceipt = await _db.Receipts
+                .Where(x => x.UserId == userId && x.Type == type && x.Date.Year == year)
+                .OrderByDescending(x => x.ReceiptNo)
+                .Select(x => x.ReceiptNo)
+                .FirstOrDefaultAsync();
+
+            int nextNumber = 1;
+
+            if (lastReceipt != null)
+            {
+                // Extract the last 6 digits
+                var parts = lastReceipt.Split('-');
+                if (parts.Length == 3 && int.TryParse(parts[2], out int lastNum))
+                {
+                    nextNumber = lastNum + 1;
+                }
+            }
+
+            var numberStr = nextNumber.ToString("D6");
+            return $"{prefix}-{year}-{numberStr}";
         }
     }
 }
