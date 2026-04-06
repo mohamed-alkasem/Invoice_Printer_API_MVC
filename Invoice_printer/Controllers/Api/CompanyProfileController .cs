@@ -7,13 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Invoice_printer.Controllers.Api
 {
-    // ── Task 1: Explicit JwtBearer scheme prevents cookie auth from being evaluated.
-    //            Both [Authorize] attributes work together:
-    //              • Policy = "JwtPolicy"                  → runs the named policy rules
-    //              • AuthenticationSchemes = "JwtBearer"  → tells ASP.NET which scheme
-    //                to use for this controller ONLY, ignoring Identity cookie defaults.
-    // "JwtBearer" is the custom scheme name used in Program.cs: .AddJwtBearer("JwtBearer", ...)
-    // Do NOT use JwtBearerDefaults.AuthenticationScheme (= "Bearer") — that scheme is not registered.
+   
     [Authorize(Policy = "JwtPolicy", AuthenticationSchemes = "JwtBearer")]
     [Route("Api/CompanyProfile")]
     [ApiController]
@@ -26,12 +20,10 @@ namespace Invoice_printer.Controllers.Api
             _companyProfileService = companyProfileService;
         }
 
-        /// <summary>Extracts the authenticated user's ID from the JWT claims.</summary>
         private string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
         // ── GET Api/CompanyProfile ────────────────────────────────────────────────
 
-        /// <summary>Returns the company profile for the authenticated user.</summary>
         [HttpGet]
         [ProducesResponseType(typeof(ApiResponse<CompanyProfileCreateOrUpdateDto>), 200)]
         [ProducesResponseType(typeof(ApiResponse<object>), 404)]
@@ -56,7 +48,6 @@ namespace Invoice_printer.Controllers.Api
 
         // ── POST Api/CompanyProfile ───────────────────────────────────────────────
 
-        /// <summary>Creates or updates the company profile for the authenticated user.</summary>
         [HttpPost]
         [ProducesResponseType(typeof(ApiResponse<object>), 200)]
         [ProducesResponseType(typeof(ApiResponse<object>), 400)]

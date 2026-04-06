@@ -184,7 +184,8 @@ namespace Invoice_printer.Services
                 }
             }
 
-            var numberStr = nextNumber.ToString("D6");
+            var numberStr = nextNumber.ToString
+                ("D6");
             return $"{prefix}-{year}-{numberStr}";
         }
     }

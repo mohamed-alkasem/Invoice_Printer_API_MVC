@@ -9,23 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Invoice_printer.Services
 {
-    /// <summary>
-    /// Implements <see cref="IReceiptRenderService"/>.
-    ///
-    /// Responsibilities:
-    ///   1. Load the full receipt graph from the database.
-    ///   2. Build a <see cref="ReceiptPrintViewModel"/> (logo data-URI, QR, amounts in words…).
-    ///   3. Decide WHICH rendering path to use and return the final HTML string.
-    ///
-    /// Rendering decision (inside <see cref="RenderHtmlAsync"/>):
-    /// ┌─────────────────────────────────────────────────────────────────┐
-    /// │  Template.TemplateMode == Html  AND  Template.HtmlContent ≠ "" │
-    /// │   → TemplatePlaceholderEngine.Render(htmlContent, vm)          │
-    /// ├─────────────────────────────────────────────────────────────────┤
-    /// │  Anything else (Image mode, no HtmlContent, no Template)       │
-    /// │   → RazorViewToStringRenderer("Receipt/Print", vm)  [fallback] │
-    /// └─────────────────────────────────────────────────────────────────┘
-    /// </summary>
+ 
     public class ReceiptRenderService(
         AppDbContext _db,
         IWebHostEnvironment _env,
@@ -120,7 +104,6 @@ namespace Invoice_printer.Services
 
         // ── IReceiptRenderService.RenderHtmlAsync ─────────────────────────────────
 
-        /// <inheritdoc/>
         public async Task<string> RenderHtmlAsync(string userId, int receiptId, string baseUrl)
         {
             var vm = await BuildPrintModelAsync(userId, receiptId, baseUrl);
@@ -131,11 +114,7 @@ namespace Invoice_printer.Services
 
         // ── Private helpers ───────────────────────────────────────────────────────
 
-        /// <summary>
-        /// Converts a web-root-relative image path (e.g. <c>/uploads/logo.png</c>)
-        /// to a Base64 data-URI so the image is fully self-contained in the HTML.
-        /// Returns <c>null</c> if the file does not exist.
-        /// </summary>
+      
         private string? TryMakeDataUri(string? webRelativePath)
         {
             if (string.IsNullOrWhiteSpace(webRelativePath))

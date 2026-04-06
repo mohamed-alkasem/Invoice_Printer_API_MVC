@@ -9,12 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Invoice_printer.Controllers.Api
 {
-    // ── Task 1: Explicit scheme declaration ensures JWT is evaluated even when
-    //            AddIdentity() sets the global default to cookie auth.
-    // "JwtBearer" is the custom scheme name used in Program.cs: .AddJwtBearer("JwtBearer", ...)
-    // Do NOT use JwtBearerDefaults.AuthenticationScheme (= "Bearer") — that scheme is not registered.
+   
     [Authorize(Policy = "JwtPolicy", AuthenticationSchemes = "JwtBearer")]
-    [Route("Api/Receipt")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ReceiptApiController : ControllerBase
     {
@@ -37,10 +34,7 @@ namespace Invoice_printer.Controllers.Api
 
         // ── GET Api/Receipt ───────────────────────────────────────────────────────
 
-        /// <summary>
-        /// Returns all receipts for the authenticated user as lightweight summaries,
-        /// optionally filtered by type.
-        /// </summary>
+       
         [HttpGet]
         [ProducesResponseType(typeof(ApiResponse<List<ReceiptSummaryDto>>), 200)]
         public async Task<IActionResult> GetAll([FromQuery] ReceiptType? type = null)
@@ -55,7 +49,6 @@ namespace Invoice_printer.Controllers.Api
 
         // ── GET Api/Receipt/{id} ──────────────────────────────────────────────────
 
-        /// <summary>Returns a single receipt by ID (must belong to the authenticated user).</summary>
         [HttpGet("{id:int}")]
         [ProducesResponseType(typeof(ApiResponse<ReceiptResponseDto>), 200)]
         [ProducesResponseType(typeof(ApiResponse<object>), 404)]
@@ -66,18 +59,12 @@ namespace Invoice_printer.Controllers.Api
             if (receipt is null)
                 return NotFound(ApiResponse<object>.NotFound($"Receipt with ID {id} was not found."));
 
-            // Map to a flat DTO — avoids circular reference serialization errors
             return Ok(ApiResponse<ReceiptResponseDto>.Ok(receipt.ToResponseDto(), "Receipt retrieved successfully."));
         }
 
         // ── POST Api/Receipt ──────────────────────────────────────────────────────
 
-        /// <summary>
-        /// Creates a new receipt.
-        ///
-        /// The user must have a company profile in the system — its ID is resolved
-        /// automatically; the caller does NOT need to supply CompanyProfileId.
-        /// </summary>
+       
         [HttpPost]
         [ProducesResponseType(typeof(ApiResponse<object>), 201)]
         [ProducesResponseType(typeof(ApiResponse<object>), 400)]
@@ -117,7 +104,6 @@ namespace Invoice_printer.Controllers.Api
 
         // ── POST Api/Receipt/Finalize/{id} ────────────────────────────────────────
 
-        /// <summary>Finalizes a draft receipt (changes Status from Draft → Final).</summary>
         [HttpPost("Finalize/{id:int}")]
         [ProducesResponseType(typeof(ApiResponse<object>), 200)]
         [ProducesResponseType(typeof(ApiResponse<object>), 404)]
@@ -133,7 +119,6 @@ namespace Invoice_printer.Controllers.Api
 
         // ── DELETE Api/Receipt/{id} ───────────────────────────────────────────────
 
-        /// <summary>Deletes a receipt (must belong to the authenticated user).</summary>
         [HttpDelete("{id:int}")]
         [ProducesResponseType(typeof(ApiResponse<object>), 200)]
         [ProducesResponseType(typeof(ApiResponse<object>), 404)]
@@ -149,15 +134,7 @@ namespace Invoice_printer.Controllers.Api
 
         // ── GET Api/Receipt/Export/{id} ───────────────────────────────────────────
 
-        /// <summary>
-        /// Exports a receipt as PDF or PNG.
-        ///
-        /// The export uses the standard built-in Razor Print layout.
-        ///
-        /// Query params:
-        ///   <c>type</c>     — 1 = PDF (default), 2 = PNG
-        ///   <c>download</c> — true = force browser download ("Content-Disposition: attachment")
-        /// </summary>
+        
         [HttpGet("Export/{id:int}")]
         [ProducesResponseType(typeof(FileContentResult), 200)]
         [ProducesResponseType(typeof(ApiResponse<object>), 404)]

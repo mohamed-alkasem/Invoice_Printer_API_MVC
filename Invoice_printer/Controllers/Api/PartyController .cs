@@ -7,12 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Invoice_printer.Controllers.Api
 {
-    // ── Task 1: Belt-and-suspenders auth scheme declaration.
-    //            [Authorize(Policy)] enforces the named policy requirements.
-    //            [Authorize(AuthenticationSchemes)] tells ASP.NET exactly WHICH
-    //            scheme to authenticate against — preventing cookie auth fallback.
-    // "JwtBearer" is the custom scheme name used in Program.cs: .AddJwtBearer("JwtBearer", ...)
-    // Do NOT use JwtBearerDefaults.AuthenticationScheme (= "Bearer") — that scheme is not registered.
+    
     [Authorize(Policy = "JwtPolicy", AuthenticationSchemes = "JwtBearer")]
     [Route("Api/Party")]
     [ApiController]
@@ -30,7 +25,6 @@ namespace Invoice_printer.Controllers.Api
 
         // ── GET Api/Party ─────────────────────────────────────────────────────────
 
-        /// <summary>Returns all parties belonging to the authenticated user.</summary>
         [HttpGet]
         [ProducesResponseType(typeof(ApiResponse<List<PartyCreateDto>>), 200)]
         public async Task<IActionResult> GetAll()
@@ -42,7 +36,6 @@ namespace Invoice_printer.Controllers.Api
 
         // ── GET Api/Party/{id} ────────────────────────────────────────────────────
 
-        /// <summary>Returns a single party by ID (must belong to the authenticated user).</summary>
         [HttpGet("{id:int}")]
         [ProducesResponseType(typeof(ApiResponse<object>), 200)]
         [ProducesResponseType(typeof(ApiResponse<object>), 404)]
@@ -58,7 +51,6 @@ namespace Invoice_printer.Controllers.Api
 
         // ── POST Api/Party ────────────────────────────────────────────────────────
 
-        /// <summary>Creates a new party for the authenticated user.</summary>
         [HttpPost]
         [ProducesResponseType(typeof(ApiResponse<object>), 201)]
         [ProducesResponseType(typeof(ApiResponse<object>), 400)]
@@ -81,7 +73,6 @@ namespace Invoice_printer.Controllers.Api
 
         // ── PUT Api/Party/{id} ────────────────────────────────────────────────────
 
-        /// <summary>Updates an existing party. The route ID must match the DTO ID.</summary>
         [HttpPut("{id:int}")]
         [ProducesResponseType(typeof(ApiResponse<object>), 200)]
         [ProducesResponseType(typeof(ApiResponse<object>), 400)]
@@ -111,7 +102,6 @@ namespace Invoice_printer.Controllers.Api
 
         // ── DELETE Api/Party/{id} ─────────────────────────────────────────────────
 
-        /// <summary>Deletes a party (must belong to the authenticated user).</summary>
         [HttpDelete("{id:int}")]
         [ProducesResponseType(typeof(ApiResponse<object>), 200)]
         [ProducesResponseType(typeof(ApiResponse<object>), 404)]

@@ -95,17 +95,8 @@ builder.Services.AddSwaggerGen(c =>
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Authentication
-//
-// KEY RULE: AddIdentity() already registers:
-//   • IdentityConstants.ApplicationScheme  → the cookie (default for MVC)
-//   • IdentityConstants.ExternalScheme
-//   • IdentityConstants.TwoFactorUserIdScheme
-//
-// We must NOT override DefaultScheme / DefaultChallengeScheme here because
-// AddIdentity() already set them to IdentityConstants.ApplicationScheme.
-// We only ADD JwtBearer as an extra scheme for API controllers.
-// ─────────────────────────────────────────────────────────────────────────────
-builder.Services.AddAuthentication()          // ← no overrides; Identity already set defaults
+
+builder.Services.AddAuthentication()          
     .AddJwtBearer("JwtBearer", options =>
     {
         var jwtKey = builder.Configuration["Jwt:Key"]
@@ -179,11 +170,10 @@ builder.Services.AddAuthorization(options =>
 // ─────────────────────────────────────────────────────────────────────────────
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
