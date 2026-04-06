@@ -19,7 +19,6 @@ namespace Invoice_printer.Controllers.Api
         private readonly ICompanyProfileService _companyProfileService;
         private readonly IReceiptExportService _exportService;
 
-        /// <summary>Extracts the authenticated user's ID from the JWT claims.</summary>
         private string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
         public ReceiptApiController(

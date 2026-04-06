@@ -7,8 +7,5 @@ namespace Invoice_printer.Iservives
     {
        
         Task<ReceiptPrintViewModel> BuildPrintModelAsync(string userId, int receiptId, string baseUrl);
-
-        
-        Task<string> RenderHtmlAsync(string userId, int receiptId, string baseUrl);
     }
 }

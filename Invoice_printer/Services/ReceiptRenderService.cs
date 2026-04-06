@@ -13,13 +13,11 @@ namespace Invoice_printer.Services
     public class ReceiptRenderService(
         AppDbContext _db,
         IWebHostEnvironment _env,
-        IQrCodeService _qr,
-        IRazorViewToStringRenderer _viewRenderer   // injected for the Razor fallback path
+        IQrCodeService _qr
     ) : IReceiptRenderService
     {
-        // ── IReceiptRenderService.BuildPrintModelAsync ────────────────────────────
 
-        /// <inheritdoc/>
+
         public async Task<ReceiptPrintViewModel> BuildPrintModelAsync(
             string userId, int receiptId, string baseUrl)
         {
@@ -42,8 +40,6 @@ namespace Invoice_printer.Services
             // ── Logo — convert file path to an embedded data-URI ──────────────────
             var logoUrl = TryMakeDataUri(receipt.CompanyProfile?.LogoPath) ?? string.Empty;
 
-            // ── Template background image ─────────────────────────────────────────
-            // With the template feature removed, we default to no dynamic background.
             var bgUrl = string.Empty;
 
             // ── Total — prefer sum of line items; fall back to receipt.Amount ─────
@@ -100,16 +96,6 @@ namespace Invoice_printer.Services
                 // QR
                 QrCodeDataUrl = qrDataUrl
             };
-        }
-
-        // ── IReceiptRenderService.RenderHtmlAsync ─────────────────────────────────
-
-        public async Task<string> RenderHtmlAsync(string userId, int receiptId, string baseUrl)
-        {
-            var vm = await BuildPrintModelAsync(userId, receiptId, baseUrl);
-
-            // ── Render standard Razor view ────────────────────────────────────────
-            return await _viewRenderer.RenderViewToStringAsync("Receipt/Print", vm);
         }
 
         // ── Private helpers ───────────────────────────────────────────────────────

@@ -9,8 +9,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using QuestPDF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+QuestPDF.Settings.License = LicenseType.Community;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // MVC
@@ -52,10 +54,9 @@ builder.Services.AddScoped<ICompanyProfileService, CompanyProfileService>();
 builder.Services.AddScoped<IPartyService, PartyService>();
 builder.Services.AddScoped<IReceiptService, ReceiptService>();
 builder.Services.AddScoped<IReceiptRenderService, ReceiptRenderService>();
-builder.Services.AddScoped<IRazorViewToStringRenderer, RazorViewToStringRenderer>();
 builder.Services.AddScoped<IReceiptExportService, ReceiptExportService>();
+builder.Services.AddScoped<IQuestPdfService, QuestPdfService>();
 builder.Services.AddScoped<IFileStorage, FileStorage>();
-builder.Services.AddSingleton<PlaywrightBrowserService>();
 builder.Services.AddScoped<IQrCodeService, QrCodeService>();
 builder.Services.AddScoped<IAuthApiService, AuthApiService>();
 
