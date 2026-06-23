@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Invoice_printer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+04ad145636955725f272f76366cc931b47b4eb1e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2d91a1b63d8416e824fda440d7d0b92a3bd99669")]
 [assembly: System.Reflection.AssemblyProductAttribute("Invoice_printer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Invoice_printer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

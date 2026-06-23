@@ -19,117 +19,117 @@ build_property.TargetFrameworkIdentifier = .NETCoreApp
 build_property.TargetFrameworkVersion = v9.0
 build_property.RootNamespace = Invoice_printer
 build_property.RootNamespace = Invoice_printer
-build_property.ProjectDir = C:\Users\hmalk\Desktop\Learning_C#\Invoice_printer\Invoice_printer\
+build_property.ProjectDir = c:\Users\hmalk\Desktop\Learning_C#\Invoice_printer\Invoice_printer\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\hmalk\Desktop\Learning_C#\Invoice_printer\Invoice_printer
+build_property.MSBuildProjectDirectory = c:\Users\hmalk\Desktop\Learning_C#\Invoice_printer\Invoice_printer
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Auth/Login.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Auth/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Auth/Logout.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Auth/Logout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxMb2dvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Auth/Register.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Auth/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/CompanyProfile/Edit.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/CompanyProfile/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVByb2ZpbGVcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Home/Index.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Home/Privacy.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Party/Create.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Party/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFydHlcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Party/Edit.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Party/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFydHlcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Party/Index.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Party/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFydHlcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Receipt/Create.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Receipt/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjZWlwdFxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Receipt/Details.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Receipt/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjZWlwdFxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Receipt/Index.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Receipt/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjZWlwdFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Receipt/Print.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Receipt/Print.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjZWlwdFxQcmludC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Shared/Error.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Shared/_AppSidebar.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Shared/_AppSidebar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BcHBTaWRlYmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Shared/_AppTopbar.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Shared/_AppTopbar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BcHBUb3BiYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Shared/_Footer.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Shared/_Footer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Gb290ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Shared/_LanguageSwitcher.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Shared/_LanguageSwitcher.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYW5ndWFnZVN3aXRjaGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Shared/_PublicNavbar.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Shared/_PublicNavbar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9QdWJsaWNOYXZiYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Shared/_ValidationScriptsPartial.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Template/Create.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Template/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVtcGxhdGVcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Template/Edit.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Template/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVtcGxhdGVcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Template/Index.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Template/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVtcGxhdGVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/_ViewImports.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/_ViewStart.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Shared/_Layout.cshtml]
+[c:/Users/hmalk/Desktop/Learning_C\#/Invoice_printer/Invoice_printer/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-27zkxgmy3t
